@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="guideline_margin">20dp</dimen>
+    <dimen name="default_top_margin">32dp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
+    <dimen name="card_view_vertical_margin">18dp</dimen>
+    <dimen name="default_margin">28dp</dimen>
+    <dimen name="large_text_size">18sp</dimen>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/regionContainer"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <View
+            android:id="@+id/colorView"
+            style="@style/match_parent"
+            android:background="@drawable/home_recycler_item_rounded" />
+
+        <TextView
+            style="@style/wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nunito_sans_bold"
+            tools:text="EU"
+            android:textSize="@dimen/large_text_size" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/colorNameTextView"
+        style="@style/wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/nunito_sans"
+        android:gravity="center"
+        android:lines="1"
+        android:textSize="@dimen/small_text_size"
+        android:textStyle="bold"
+        tools:text="Europe" />
+
+</LinearLayout>

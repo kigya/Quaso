@@ -1,9 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/deep_koamaru">
+
+    <ImageView
+        style="@style/wrap_content"
+        android:contentDescription="@string/home_fragment_background_image"
+        android:src="@drawable/ic_home_background_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        style="@style/wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guideline_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        style="@style/wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guideline_margin" />
+
+    <ImageView
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:contentDescription="@string/small_app_logo"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pointsStatus"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:background="@drawable/home_points_bg_rounded"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:padding="10dp"
+        android:text="@string/points_value"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="740 Points" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewStats"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/blue_jeans"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/pointsStatus"
+        tools:viewBindingIgnore="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lastAttemptTextHint"
+                style="@style/wrap_content"
+                android:layout_alignEnd="@id/firstCardViewDelimeter"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:text="@string/last_nattempt"
+                tools:viewBindingIgnore="true" />
+
+            <View
+                android:id="@+id/firstCardViewDelimeter"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/card_view_vertical_margin"
+                android:layout_marginBottom="@dimen/card_view_vertical_margin"
+                android:layout_toStartOf="@id/modeCategoryCardViewHint"
+                android:background="@color/white"
+                tools:viewBindingIgnore="true"/>
+
+            <TextView
+                android:id="@+id/latestPlayModeText"
+                style="@style/wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:text="@string/nan"
+                tools:text="SA" />
+
+            <TextView
+                android:id="@+id/modeCategoryCardViewHint"
+                style="@style/wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/default_margin"
+                android:fontFamily="@font/nunito_sans"
+                android:text="@string/mode"
+                android:textSize="@dimen/small_text_size"
+                tools:ignore="RtlHardcoded"
+                tools:viewBindingIgnore="true" />
+
+            <View
+                android:id="@+id/secondCardViewDelimeter"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/card_view_vertical_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/card_view_vertical_margin"
+                android:layout_toEndOf="@id/modeCategoryCardViewHint"
+                android:background="@color/white"
+                tools:viewBindingIgnore="true"/>
+
+            <TextView
+                android:id="@+id/latestPointsText"
+                style="@style/wrap_content"
+                android:layout_alignLeft="@id/pointsCategoryCardViewHint"
+                android:layout_alignTop="@id/latestPlayModeText"
+                android:layout_alignRight="@id/pointsCategoryCardViewHint"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:text="@string/nan"
+                tools:ignore="RtlHardcoded"
+                tools:text="SA" />
+
+            <TextView
+                android:id="@+id/pointsCategoryCardViewHint"
+                style="@style/wrap_content"
+                android:layout_alignStart="@id/secondCardViewDelimeter"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:fontFamily="@font/nunito_sans"
+                android:text="@string/points"
+                android:textSize="@dimen/small_text_size"
+                tools:viewBindingIgnore="true" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/regionsTitleText"
+        style="@style/wrap_content"
+        android:text="@string/regions"
+        app:layout_constraintTop_toBottomOf="@id/cardViewStats"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        android:layout_marginTop="@dimen/default_margin"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:textSize="@dimen/large_text_size"
+        tools:viewBindingIgnore="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/regionsTitleText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:layout_marginTop="12dp"
+        tools:listitem="@layout/item_region"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

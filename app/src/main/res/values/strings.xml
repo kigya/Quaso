@@ -1,5 +1,24 @@
 <resources>
     <string name="app_name">Quaso</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_fragment_background_image">Home Fragment background image</string>
+    <string name="small_app_logo">Small app logo</string>
+    <string name="points_value">%1$d Points</string>
+    <string name="last_nattempt">Last\nAttempt</string>
+    <string name="mode">Mode</string>
+    <string name="nan">NaN</string>
+    <string name="points">Points</string>
+    <string name="regions">Regions</string>
+    <string name="icon_back">Icon back</string>
+    <string name="of_five">of 5</string>
+    <string name="hint_button">Hint button</string>
+    <string name="top_left_overlay_item">Top Left Overlay Item</string>
+    <string name="bottom_left_overlay_item">Bottom Left Overlay Item</string>
+    <string name="top_center_overlay_item">Top Center Overlay Item</string>
+    <string name="bottom_center_overlay_item">Bottom Center Overlay Item</string>
+    <string name="top_right_overlay_item">Top Right Overlay Item</string>
+    <string name="bottom_right_overlay_item">Bottom Right Overlay Item</string>
+    <string name="points_title">Points</string>
+    <string name="next">Next</string>
+    <string name="_0">0</string>
 </resources>

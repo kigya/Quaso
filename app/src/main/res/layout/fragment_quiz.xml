@@ -3,7 +3,334 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/deep_koamaru">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        style="@style/wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guideline_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        style="@style/wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guideline_margin" />
+
+    <ImageView
+        android:id="@+id/backIcon"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:clickable="true"
+        android:contentDescription="@string/icon_back"
+        android:focusable="true"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/quizStatusText"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:layout_marginEnd="2dp"
+        android:fontFamily="@font/nunito_sans"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
+        app:layout_constraintEnd_toStartOf="@id/ofFiveText"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Europe 2" />
+
+    <TextView
+        android:id="@+id/ofFiveText"
+        style="@style/wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:alpha="0.7"
+        android:fontFamily="@font/nunito_sans"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/quizStatusText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/quizStatusText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/of_five"
+        tools:viewBindingIgnore="true" />
+
+    <ImageView
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:clickable="true"
+        android:contentDescription="@string/hint_button"
+        android:focusable="true"
+        android:src="@drawable/ic_hint_button"
+        app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mackhartley.roundedprogressbar.RoundedProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/ofFiveText"
+        app:rpbAnimationLength="1000"
+        app:rpbBackgroundColor="#26FFFFFF"
+        app:rpbCornerRadiusBottomRight="10dp"
+        app:rpbCornerRadiusTopLeft="10dp"
+        app:rpbProgress="0"
+        app:rpbProgressColor="@color/blue_jeans"
+        app:rpbShowProgressText="false"
+        tools:rpbProgress="40" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/flag"
+        style="@style/fill_constraint"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintDimensionRatio="H, 4:3"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:shapeAppearanceOverlay="@style/rounded_corner_flag"
+        tools:src="@drawable/ic_ac" />
+
+    <ImageView
+        android:id="@+id/top_left_overlay"
+        style="@style/fill_constraint"
+        android:contentDescription="@string/top_left_overlay_item"
+        android:src="@drawable/ic_top_left_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/flagCenter"
+        app:layout_constraintEnd_toEndOf="@id/leftEqual"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="@id/flag" />
+
+    <ImageView
+        android:id="@+id/bottom_left_overlay"
+        style="@style/fill_constraint"
+        android:contentDescription="@string/bottom_left_overlay_item"
+        android:src="@drawable/ic_bottom_left_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintEnd_toStartOf="@id/leftEqual"
+        app:layout_constraintStart_toStartOf="@id/flag"
+        app:layout_constraintTop_toTopOf="@id/flagCenter" />
+
+    <ImageView
+        android:id="@+id/top_center_overlay"
+        style="@style/fill_constraint"
+        android:contentDescription="@string/top_center_overlay_item"
+        android:src="@drawable/ic_top_center_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/flagCenter"
+        app:layout_constraintEnd_toStartOf="@id/rightEqual"
+        app:layout_constraintStart_toEndOf="@id/leftEqual"
+        app:layout_constraintTop_toTopOf="@id/flag" />
+
+    <ImageView
+        android:id="@+id/bottom_center_overlay"
+        style="@style/fill_constraint"
+        android:contentDescription="@string/bottom_center_overlay_item"
+        android:src="@drawable/ic_bottom_center_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintEnd_toEndOf="@id/rightEqual"
+        app:layout_constraintStart_toStartOf="@id/leftEqual"
+        app:layout_constraintTop_toTopOf="@id/flagCenter" />
+
+    <ImageView
+        android:id="@+id/top_right_overlay"
+        style="@style/fill_constraint"
+        android:contentDescription="@string/top_right_overlay_item"
+        android:src="@drawable/ic_top_right_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/flagCenter"
+        app:layout_constraintEnd_toEndOf="@id/flag"
+        app:layout_constraintStart_toStartOf="@id/rightEqual"
+        app:layout_constraintTop_toTopOf="@id/flag" />
+
+    <ImageView
+        android:id="@+id/bottom_right_overlay"
+        style="@style/fill_constraint"
+        android:contentDescription="@string/bottom_right_overlay_item"
+        android:src="@drawable/ic_bottom_right_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintEnd_toEndOf="@id/flag"
+        app:layout_constraintStart_toStartOf="@id/rightEqual"
+        app:layout_constraintTop_toTopOf="@id/flagCenter" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupOverlay"
+        style="@style/wrap_content"
+        app:constraint_referenced_ids="
+        top_left_overlay, bottom_left_overlay,
+        top_center_overlay, bottom_center_overlay,
+        top_right_overlay, bottom_right_overlay" />
+
+    <View
+        android:id="@+id/flagCenter"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintEnd_toEndOf="@id/flag"
+        app:layout_constraintStart_toStartOf="@id/flag"
+        app:layout_constraintTop_toTopOf="@id/flag"
+        tools:viewBindingIgnore="true" />
+
+    <View
+        android:id="@+id/leftEqual"
+        android:layout_width="0.01dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintEnd_toStartOf="@id/rightEqual"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@id/flag"
+        app:layout_constraintTop_toTopOf="@id/flag"
+        tools:viewBindingIgnore="true" />
+
+    <View
+        android:id="@+id/rightEqual"
+        android:layout_width="0.01dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintEnd_toEndOf="@id/flag"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/leftEqual"
+        app:layout_constraintTop_toTopOf="@id/flag"
+        tools:viewBindingIgnore="true" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/placeholder_first"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/guideline_margin"
+        android:src="@drawable/ic_xx_4"
+        app:layout_constraintEnd_toStartOf="@id/placeholder_second"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/placeholder_second"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/guideline_margin"
+        android:src="@drawable/ic_xx_4"
+        app:layout_constraintEnd_toStartOf="@id/placeholder_third"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/placeholder_first"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/placeholder_third"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/guideline_margin"
+        android:src="@drawable/ic_xx_4"
+        app:layout_constraintEnd_toStartOf="@id/placeholder_fourth"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/placeholder_second"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/placeholder_fourth"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/guideline_margin"
+        android:src="@drawable/ic_xx_4"
+        app:layout_constraintEnd_toStartOf="@id/placeholder_fifth"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/placeholder_third"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/placeholder_fifth"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/guideline_margin"
+        android:src="@drawable/ic_xx_4"
+        app:layout_constraintEnd_toStartOf="@id/placeholder_sixth"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/placeholder_fourth"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/placeholder_sixth"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/guideline_margin"
+        android:src="@drawable/ic_xx_4"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/placeholder_fifth"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierPlaceholder"
+        style="@style/wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="
+        placeholder_first, placeholder_second,
+        placeholder_third, placeholder_fourth,
+        placeholder_fifth, placeholder_sixth" />
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_background"
+        android:closeIcon="@drawable/ic_baseline_close_24"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search for a country"
+        android:searchIcon="@drawable/ic_search_icon"
+        android:theme="@style/ThemeOverlay.search"
+        app:layout_constraintTop_toBottomOf="@id/barrierPlaceholder"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:layout_marginTop="@dimen/default_margin" />
+
+    <TextView
+        android:id="@+id/pointsTitle"
+        style="@style/wrap_content"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:text="@string/points_title"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+
+        android:layout_marginTop="@dimen/default_margin"
+        tools:viewBindingIgnore="true"
+        app:layout_constraintBottom_toTopOf="@id/pointsAmountText"/>
+
+    <TextView
+        android:id="@+id/pointsAmountText"
+        style="@style/wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:text="@string/_0"
+        android:textSize="64sp"
+        app:layout_constraintBottom_toTopOf="@id/nextButton"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nextButton"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:cornerRadius="10dp"
+        android:backgroundTint="@color/american_blue"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
