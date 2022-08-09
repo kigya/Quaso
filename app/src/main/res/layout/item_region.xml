@@ -18,6 +18,7 @@
             android:background="@drawable/home_recycler_item_rounded" />
 
         <TextView
+            android:id="@+id/regionTextInside"
             style="@style/wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_sans_bold"
@@ -27,7 +28,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/colorNameTextView"
+        android:id="@+id/regionNameTextView"
         style="@style/wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="4dp"

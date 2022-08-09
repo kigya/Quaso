@@ -36,6 +36,7 @@
         android:layout_marginTop="@dimen/default_top_margin"
         android:layout_marginEnd="2dp"
         android:fontFamily="@font/nunito_sans"
+        android:text="@string/quizTitle"
         android:textSize="@dimen/large_text_size"
         app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
         app:layout_constraintEnd_toStartOf="@id/ofFiveText"
@@ -51,13 +52,13 @@
         android:layout_marginTop="@dimen/default_top_margin"
         android:alpha="0.7"
         android:fontFamily="@font/nunito_sans"
+        android:text="@string/of_five"
         android:textSize="@dimen/large_text_size"
         app:layout_constraintBottom_toBottomOf="@id/quizStatusText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@id/quizStatusText"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/of_five"
         tools:viewBindingIgnore="true" />
 
     <ImageView
@@ -72,7 +73,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.mackhartley.roundedprogressbar.RoundedProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/topProgressBar"
         android:layout_width="0dp"
         android:layout_height="10dp"
         android:layout_marginStart="@dimen/default_margin"
@@ -97,7 +98,7 @@
         app:layout_constraintDimensionRatio="H, 4:3"
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:layout_constraintTop_toBottomOf="@id/topProgressBar"
         app:shapeAppearanceOverlay="@style/rounded_corner_flag"
         tools:src="@drawable/ic_ac" />
 
@@ -164,6 +165,7 @@
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupOverlay"
         style="@style/wrap_content"
+        android:visibility="invisible"
         app:constraint_referenced_ids="
         top_left_overlay, bottom_left_overlay,
         top_center_overlay, bottom_center_overlay,
@@ -284,53 +286,57 @@
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
         android:background="@drawable/search_background"
         android:closeIcon="@drawable/ic_baseline_close_24"
         android:iconifiedByDefault="false"
         android:queryHint="Search for a country"
         android:searchIcon="@drawable/ic_search_icon"
         android:theme="@style/ThemeOverlay.search"
-        app:layout_constraintTop_toBottomOf="@id/barrierPlaceholder"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        android:layout_marginTop="@dimen/default_margin" />
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/barrierPlaceholder" />
 
     <TextView
         android:id="@+id/pointsTitle"
         style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
         android:fontFamily="@font/nunito_sans_semibold"
         android:text="@string/points_title"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/pointsAmountText"
+
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
-
-        android:layout_marginTop="@dimen/default_margin"
-        tools:viewBindingIgnore="true"
-        app:layout_constraintBottom_toTopOf="@id/pointsAmountText"/>
+        tools:viewBindingIgnore="true" />
 
     <TextView
         android:id="@+id/pointsAmountText"
         style="@style/wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/search_view"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         android:text="@string/_0"
         android:textSize="64sp"
-        app:layout_constraintBottom_toTopOf="@id/nextButton"/>
+        app:layout_constraintBottom_toTopOf="@id/nextButton"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:cornerRadius="10dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/american_blue"
+        android:fontFamily="@font/nunito_sans_semibold"
         android:text="@string/next"
         android:textAllCaps="false"
-        android:fontFamily="@font/nunito_sans_semibold"
         android:textSize="16sp"
-        android:layout_marginBottom="10dp"/>
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart" />
+
+
+    <include layout="@layout/part_result"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,4 +21,12 @@
     <string name="points_title">Points</string>
     <string name="next">Next</string>
     <string name="_0">0</string>
+    <string name="ac_name">Ascension Island</string>
+    <string name="ac_hint">Officially, nobody is from there. The UK government denies the right of abode, turning citizens - some of whom have lived on the island for decades - into temporary visitors.</string>
+    <string name="error_try_again_later">Error! Please, try again…</string>
+    <string name="try_again">Try Again</string>
+    <string name="percentage_value">%1$d%%</string>
+    <string name="please_wait">Please wait</string>
+    <string name="error_happened">Can\'t start game</string>
+    <string name="quizTitle">%1$s %2$d</string>
 </resources>
