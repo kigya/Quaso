@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kigya.foundation.views.BaseFragment
 import com.kigya.foundation.views.BaseScreen
 import com.kigya.foundation.views.screenViewModel
@@ -23,6 +25,8 @@ class QuizFragment : BaseFragment() {
 
     override val viewModel by screenViewModel<QuizFragmentViewModel>()
 
+    private lateinit var overlayList: List<ImageView>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,21 +34,50 @@ class QuizFragment : BaseFragment() {
     ): View {
         val binding = FragmentQuizBinding.inflate(inflater, container, false)
 
-        collectFlow(viewModel.viewState) { result ->
-            renderSimpleResult(binding.root, result) { viewState ->
-                binding.flag.setImageDrawable(
-                    this.context?.let {
-                        ContextCompat.getDrawable(
-                            it.applicationContext, // Context
-                            viewState.countriesList[0].country.bigFlag // Drawable
-                        )
-                    })
+        with(binding) {
+            overlayList = getShuffledOverlayList()
+
+            collectFlow(viewModel.viewState) { result ->
+                renderSimpleResult(binding.root, result) { viewState ->
+                    setFlag(viewState)
+                    setRegionTitleText()
+                    notifyUpdates()
+                    setNextButtonVisibility(viewState)
+                }
             }
         }
-
-        with(binding) {
-            quizStatusText.text = getString(R.string.quizTitle, "tranerName", 1);
-        }
+        binding.nextButton.setOnClickListener { viewModel.onAttemptUsed(overlayList) }
         return binding.root
+    }
+
+    private fun FragmentQuizBinding.setNextButtonVisibility(viewState: QuizFragmentViewModel.ViewState) {
+        if (viewState.showNextButton) {
+            nextButton.visibility = View.VISIBLE
+        } else {
+            nextButton.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun notifyUpdates() = viewModel.hideOverlayItem(overlayList)
+
+    private fun FragmentQuizBinding.setRegionTitleText() {
+        quizStatusText.text =
+            getString(
+                R.string.quizTitle,
+                viewModel.region.toString()
+            )
+    }
+
+    private fun FragmentQuizBinding.getShuffledOverlayList() = listOf(
+        topLeftOverlay,
+        topCenterOverlay,
+        topRightOverlay,
+        bottomLeftOverlay,
+        bottomCenterOverlay,
+        bottomRightOverlay
+    ).shuffled()
+
+    private fun FragmentQuizBinding.setFlag(viewState: QuizFragmentViewModel.ViewState) {
+        flag.setImageResource(viewState.countriesList.first().bigFlag)
     }
 }

@@ -10,7 +10,7 @@
     <string name="points">Points</string>
     <string name="regions">Regions</string>
     <string name="icon_back">Icon back</string>
-    <string name="of_five">of 5</string>
+    <string name="region">Region</string>
     <string name="hint_button">Hint button</string>
     <string name="top_left_overlay_item">Top Left Overlay Item</string>
     <string name="bottom_left_overlay_item">Bottom Left Overlay Item</string>
@@ -21,12 +21,32 @@
     <string name="points_title">Points</string>
     <string name="next">Next</string>
     <string name="_0">0</string>
-    <string name="ac_name">Ascension Island</string>
-    <string name="ac_hint">Officially, nobody is from there. The UK government denies the right of abode, turning citizens - some of whom have lived on the island for decades - into temporary visitors.</string>
     <string name="error_try_again_later">Error! Please, try again…</string>
     <string name="try_again">Try Again</string>
     <string name="percentage_value">%1$d%%</string>
     <string name="please_wait">Please wait</string>
     <string name="error_happened">Can\'t start game</string>
-    <string name="quizTitle">%1$s %2$d</string>
+    <string name="quizTitle">%1$s</string>
+    <string name="ac_name">Ascension Island</string>
+    <string name="ac_hint">Officially, nobody is from there. The UK government denies the right of abode, turning citizens - some of whom have lived on the island for decades - into temporary visitors.</string>
+    <string name="ad_name">Andorra</string>
+    <string name="ad_hint">The only country on earth where the official language of is Catalan.</string>
+    <string name="ae_name">United Arab Emirates</string>
+    <string name="ae_hint">Six of the world’s tallest hotels are in the this country.</string>
+    <string name="af_name">Afganinstan</string>
+    <string name="af_hint">This country is the world’s largest producer of opium.</string>
+    <string name="ag_name">Antigua and Barbuda</string>
+    <string name="ag_hint">Country name means “Old” in Spanish, named by Christopher Columbus, who first discover the island, in honor of the Seville Cathedral of Santa Maria La Antigua.</string>
+    <string name="ai_name">Anguilla</string>
+    <string name="ai_hint">It was once known as “Snake Island”</string>
+
+    <string-array name="names">
+        <item>@string/ac_name</item>
+        <item>@string/ad_name</item>
+        <item>@string/ae_name</item>
+        <item>@string/af_name</item>
+        <item>@string/ag_name</item>
+        <item>@string/ai_name</item>
+    </string-array>
+
 </resources>

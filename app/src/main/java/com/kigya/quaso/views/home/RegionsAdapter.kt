@@ -1,5 +1,6 @@
 package com.kigya.quaso.views.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class RegionsAdapter(
 ) : RecyclerView.Adapter<RegionsAdapter.Holder>(), View.OnClickListener {
 
     var items: List<Region> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -31,7 +33,7 @@ class RegionsAdapter(
         val region = items[position]
         with(holder.binding) {
             root.tag = region
-            regionNameTextView.text = region.name
+            regionNameTextView.text = region.nameFull
             regionTextInside.text = region.nameCut
         }
     }

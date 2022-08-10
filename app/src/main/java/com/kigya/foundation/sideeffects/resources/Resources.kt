@@ -1,6 +1,8 @@
 package com.kigya.foundation.sideeffects.resources
 
 import android.content.SharedPreferences
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.kigya.foundation.sideeffects.resources.plugin.ResourcesPlugin
 

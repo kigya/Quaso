@@ -1,6 +1,7 @@
 package com.kigya.quaso.model.game
 
 import com.kigya.foundation.model.Repository
+import com.kigya.foundation.sideeffects.resources.Resources
 import com.kigya.quaso.model.countries.Country
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,8 @@ interface GameRepository: Repository {
      */
     suspend fun getCurrentQuestionNumber(): Int
 
+    fun getTotalPoints(resources: Resources): Int
+
     /**
      * Set the specified game as current.
      */
@@ -24,12 +27,16 @@ interface GameRepository: Repository {
     /**
      * Set the specified question number as current.
      */
-    fun setCurrentQuestionNumber(int: Int): Flow<Int>
+    fun setCurrentAttempt(int: Int): Flow<Int>
+
+    fun setTotalPoints(int: Int): Flow<Int>
 
     /**
      * Listen for further changes of the game.
      */
     fun listenLatestGame(): Flow<Game>
+
+    fun listenTotalPoints(): Flow<Int>
 
 
     /**

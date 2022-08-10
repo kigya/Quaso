@@ -27,16 +27,19 @@ class HomeFragment : BaseFragment() {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         val adapter = RegionsAdapter(viewModel)
 
-        collectFlow(viewModel.viewState) { result ->
-            renderSimpleResult(binding.root, result) { viewState ->
-                with(binding) {
+        with(binding) {
+            collectFlow(viewModel.viewState) { result ->
+                renderSimpleResult(binding.root, result) { viewState ->
                     setupRecyclerView(adapter, viewState)
                     setupProgress(viewState)
                 }
             }
+            viewModel.screenTitle.observe(viewLifecycleOwner) {
+                pointsStatus.text = it
+            }
+            onTryAgain(root, viewModel::tryAgain)
         }
 
-        onTryAgain(binding.root, viewModel::tryAgain)
 
         return binding.root
     }

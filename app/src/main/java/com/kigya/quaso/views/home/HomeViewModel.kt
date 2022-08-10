@@ -1,5 +1,7 @@
 package com.kigya.quaso.views.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kigya.foundation.model.*
 import com.kigya.foundation.sideeffects.navigator.Navigator
@@ -18,6 +20,7 @@ import com.kigya.quaso.views.quiz.QuizFragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.sample
 
 
@@ -35,12 +38,23 @@ class HomeViewModel(
         PendingResult()
     )
 
+
     val viewState: ResultFlow<ViewState> = combine(
         _availableRegions,
         _instantSaveInProgress,
         _sampledSaveInProgress,
         ::mergeSources
     )
+
+    val screenTitle: LiveData<String> = viewState
+        .map { result ->
+            return@map if (result is SuccessResult) {
+                result.data.totalPointsTitle
+            } else {
+                resources.getString(R.string.nan)
+            }
+        }
+        .asLiveData()
 
     init {
         load()
@@ -100,20 +114,20 @@ class HomeViewModel(
                 saveProgressPercentageMessage = resources.getString(
                     R.string.percentage_value,
                     sampledSaveInProgress.getPercentage()
+                ),
+                totalPointsTitle = resources.getString(
+                    R.string.points_value,
+                    gameRepository.getTotalPoints(resources)
                 )
             )
         }
     }
 
-    private fun load() = into(_availableRegions) {
-        delay(1000) // emitation of the first result is delayed to show the progress bar
-//        _totalPoints.postValue(
-//            SuccessResult(
-//                resources.getSharedPreferences(POINTS_PREFERENCES, Context.MODE_PRIVATE)
-//                    .getInt(TOTAL_POINTS, 0)
-//            )
-//        )
-        regionRepository.getAvailableRegions()
+    private fun load() {
+        into(_availableRegions) {
+            delay(1000) // emitation of the first result is delayed to show the progress bar
+            regionRepository.getAvailableRegions()
+        }
     }
 
     fun tryAgain() = load()
@@ -122,12 +136,8 @@ class HomeViewModel(
         val regionsList: List<Region>,
         val showLoadingProgressBar: Boolean,
         val saveProgressPercentage: Int,
-        val saveProgressPercentageMessage: String
+        val saveProgressPercentageMessage: String,
+        val totalPointsTitle: String
     )
-
-    companion object {
-        private const val POINTS_PREFERENCES = "points_preferences"
-        private const val TOTAL_POINTS = "total_points"
-    }
 
 }

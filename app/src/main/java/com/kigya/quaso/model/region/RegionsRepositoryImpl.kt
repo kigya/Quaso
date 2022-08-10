@@ -14,13 +14,13 @@ class RegionsRepositoryImpl(
 
     companion object {
         val regions = listOf(
+            Region.World,
             Region.Europe,
             Region.Asia,
             Region.Africa,
             Region.NorthAmerica,
             Region.SouthAmerica,
-            Region.Oceania,
-            Region.World
+            Region.Oceania
         )
     }
 }

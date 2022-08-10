@@ -69,7 +69,48 @@ class InMemoryCountriesRepository(
                 R.drawable.ic_ac,
                 R.drawable.ic_ac_small,
                 R.string.ac_hint
-            )
+            ),
+            Country(
+                2,
+                R.string.ad_name,
+                Region.Europe,
+                R.drawable.ic_ad,
+                R.drawable.ic_ad_small,
+                R.string.ad_hint
+            ),
+            Country(
+                3,
+                R.string.ae_name,
+                Region.Asia,
+                R.drawable.ic_ae,
+                R.drawable.ic_ae_small,
+                R.string.ae_hint
+            ),
+            Country(
+                4,
+                R.string.af_name,
+                Region.Asia,
+                R.drawable.ic_af,
+                R.drawable.ic_af_small,
+                R.string.af_hint
+            ),
+            Country(
+                5,
+                R.string.ag_name,
+                Region.NorthAmerica,
+                R.drawable.ic_ag,
+                R.drawable.ic_ag_small,
+                R.string.ag_hint
+            ),
+            Country(
+                6,
+                R.string.ai_name,
+                Region.NorthAmerica,
+                R.drawable.ic_ai,
+                R.drawable.ic_ai_small,
+                R.string.ai_hint
+            ),
+
         )
     }
 

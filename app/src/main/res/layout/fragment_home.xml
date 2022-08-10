@@ -177,7 +177,7 @@
         android:id="@+id/saveProgressGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="savingHintTextView,savingPercentageTextView,saveProgressBar"/>
+        app:constraint_referenced_ids="savingHintTextView,savingPercentageTextView,saveProgressBar" />
 
     <TextView
         android:id="@+id/savingHintTextView"
@@ -211,7 +211,7 @@
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="100dp"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"/>
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd" />
 
 
     <include layout="@layout/part_result" />

@@ -26,40 +26,22 @@
         android:contentDescription="@string/icon_back"
         android:focusable="true"
         android:src="@drawable/ic_back"
-        app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
+        app:layout_constraintBottom_toBottomOf="@id/quizStatusText"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/quizStatusText"
         style="@style/wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:layout_marginEnd="2dp"
         android:fontFamily="@font/nunito_sans"
         android:text="@string/quizTitle"
         android:textSize="@dimen/large_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
-        app:layout_constraintEnd_toStartOf="@id/ofFiveText"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Europe 2" />
-
-    <TextView
-        android:id="@+id/ofFiveText"
-        style="@style/wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:alpha="0.7"
-        android:fontFamily="@font/nunito_sans"
-        android:text="@string/of_five"
-        android:textSize="@dimen/large_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/quizStatusText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/quizStatusText"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:viewBindingIgnore="true" />
+        tools:text="Europe" />
 
     <ImageView
         style="@style/wrap_content"
@@ -68,7 +50,7 @@
         android:contentDescription="@string/hint_button"
         android:focusable="true"
         android:src="@drawable/ic_hint_button"
-        app:layout_constraintBottom_toBottomOf="@id/ofFiveText"
+        app:layout_constraintBottom_toBottomOf="@id/backIcon"
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +63,7 @@
         android:layout_marginEnd="@dimen/default_margin"
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/ofFiveText"
+        app:layout_constraintTop_toBottomOf="@id/backIcon"
         app:rpbAnimationLength="1000"
         app:rpbBackgroundColor="#26FFFFFF"
         app:rpbCornerRadiusBottomRight="10dp"
@@ -107,6 +89,7 @@
         style="@style/fill_constraint"
         android:contentDescription="@string/top_left_overlay_item"
         android:src="@drawable/ic_top_left_overlay"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/flagCenter"
         app:layout_constraintEnd_toEndOf="@id/leftEqual"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
@@ -157,19 +140,11 @@
         style="@style/fill_constraint"
         android:contentDescription="@string/bottom_right_overlay_item"
         android:src="@drawable/ic_bottom_right_overlay"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/flag"
         app:layout_constraintEnd_toEndOf="@id/flag"
         app:layout_constraintStart_toStartOf="@id/rightEqual"
         app:layout_constraintTop_toTopOf="@id/flagCenter" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/groupOverlay"
-        style="@style/wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="
-        top_left_overlay, bottom_left_overlay,
-        top_center_overlay, bottom_center_overlay,
-        top_right_overlay, bottom_right_overlay" />
 
     <View
         android:id="@+id/flagCenter"
@@ -297,29 +272,6 @@
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/barrierPlaceholder" />
 
-    <TextView
-        android:id="@+id/pointsTitle"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:fontFamily="@font/nunito_sans_semibold"
-        android:text="@string/points_title"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/pointsAmountText"
-
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        tools:viewBindingIgnore="true" />
-
-    <TextView
-        android:id="@+id/pointsAmountText"
-        style="@style/wrap_content"
-        android:text="@string/_0"
-        android:textSize="64sp"
-        app:layout_constraintBottom_toTopOf="@id/nextButton"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/search_view" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
         android:layout_width="0dp"
@@ -335,8 +287,8 @@
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@id/guidelineStart" />
 
-
-    <include layout="@layout/part_result"
-        android:visibility="gone"/>
+    <include
+        layout="@layout/part_result"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

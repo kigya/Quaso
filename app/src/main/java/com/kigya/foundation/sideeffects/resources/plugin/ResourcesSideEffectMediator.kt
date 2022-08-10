@@ -5,7 +5,8 @@ import android.content.SharedPreferences
 import com.kigya.foundation.sideeffects.SideEffectMediator
 import com.kigya.foundation.sideeffects.resources.Resources
 
-class  ResourcesSideEffectMediator(
+
+class ResourcesSideEffectMediator(
     private val appContext: Context
 ) : SideEffectMediator<Nothing>(), Resources {
 
