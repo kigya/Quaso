@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kigya.foundation.views.BaseFragment
 import com.kigya.foundation.views.BaseScreen
 import com.kigya.foundation.views.screenViewModel
@@ -35,49 +33,49 @@ class QuizFragment : BaseFragment() {
         val binding = FragmentQuizBinding.inflate(inflater, container, false)
 
         with(binding) {
-            overlayList = getShuffledOverlayList()
+            overlayList = getOverlayList()
 
             collectFlow(viewModel.viewState) { result ->
                 renderSimpleResult(binding.root, result) { viewState ->
                     setFlag(viewState)
                     setRegionTitleText()
                     notifyUpdates()
-                    setNextButtonVisibility(viewState)
                 }
             }
         }
-        binding.nextButton.setOnClickListener { viewModel.onAttemptUsed(overlayList) }
+
+        binding.changeChoiseButton.setOnClickListener { viewModel.onChangePressed() }
+        binding.hintButton.setOnClickListener { viewModel.showHintDialog() }
+        binding.countryPlaceholder.text = getString(viewModel.getCurrentChoise())
+        binding.nextButton.setOnClickListener { viewModel.onSkipPressed() }
+        binding.backIcon.setOnClickListener { viewModel.onReturnPressed() }
+
         return binding.root
     }
 
-    private fun FragmentQuizBinding.setNextButtonVisibility(viewState: QuizFragmentViewModel.ViewState) {
-        if (viewState.showNextButton) {
-            nextButton.visibility = View.VISIBLE
-        } else {
-            nextButton.visibility = View.INVISIBLE
-        }
+    private fun FragmentQuizBinding.notifyUpdates() {
+        viewModel.onTrigger(overlayList)
+        topProgressBar.setProgressPercentage(viewModel.getProgressPercentage())
     }
-
-    private fun notifyUpdates() = viewModel.hideOverlayItem(overlayList)
 
     private fun FragmentQuizBinding.setRegionTitleText() {
-        quizStatusText.text =
-            getString(
-                R.string.quizTitle,
-                viewModel.region.toString()
-            )
+        quizStatusText.text = getString(
+            R.string.quizTitle,
+            viewModel.region.toString()
+        )
     }
 
-    private fun FragmentQuizBinding.getShuffledOverlayList() = listOf(
+    private fun FragmentQuizBinding.getOverlayList() = listOf(
         topLeftOverlay,
         topCenterOverlay,
         topRightOverlay,
         bottomLeftOverlay,
         bottomCenterOverlay,
         bottomRightOverlay
-    ).shuffled()
+    )
 
     private fun FragmentQuizBinding.setFlag(viewState: QuizFragmentViewModel.ViewState) {
-        flag.setImageResource(viewState.countriesList.first().bigFlag)
+        val country = viewState.country
+        flag.setImageResource(country.bigFlag)
     }
 }

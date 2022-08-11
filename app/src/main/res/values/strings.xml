@@ -39,6 +39,11 @@
     <string name="ag_hint">Country name means “Old” in Spanish, named by Christopher Columbus, who first discover the island, in honor of the Seville Cathedral of Santa Maria La Antigua.</string>
     <string name="ai_name">Anguilla</string>
     <string name="ai_hint">It was once known as “Snake Island”</string>
+    <string name="countries">Countries</string>
+    <string name="guess">Guess</string>
+    <string name="change_country_image_button">Change country image button</string>
+    <string name="empty">Empty!</string>
+    <string name="aq">Antarctica</string>
 
     <string-array name="names">
         <item>@string/ac_name</item>

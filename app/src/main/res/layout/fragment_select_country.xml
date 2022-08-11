@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_koamaru">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        style="@style/wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guideline_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        style="@style/wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guideline_margin" />
+
+    <ImageView
+        android:id="@+id/backIcon"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:clickable="true"
+        android:contentDescription="@string/icon_back"
+        android:focusable="true"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@id/quizStatusText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/quizStatusText"
+        style="@style/wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:fontFamily="@font/nunito_sans"
+        android:text="@string/countries"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/backIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:background="@drawable/search_background"
+        android:closeIcon="@drawable/ic_baseline_close_24"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search for a country"
+        android:searchIcon="@drawable/ic_search_icon"
+        android:theme="@style/ThemeOverlay.search"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/backIcon" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/countriesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:layout_marginTop="12dp"
+        tools:listitem="@layout/item_country"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/saveProgressGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="savingHintTextView,savingPercentageTextView,saveProgressBar" />
+
+    <TextView
+        android:id="@+id/savingHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/please_wait"
+        android:fontFamily="@font/nunito_sans"
+        app:layout_constraintStart_toStartOf="@id/saveProgressBar"
+        app:layout_constraintBottom_toTopOf="@id/saveProgressBar"/>
+
+    <TextView
+        android:id="@+id/savingPercentageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        tools:text="100%"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/saveProgressBar"
+        app:layout_constraintBottom_toBottomOf="@id/saveProgressBar"
+        android:fontFamily="@font/nunito_sans_semibold" />
+
+    <ProgressBar
+        android:id="@+id/saveProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:max="100"
+        tools:progress="33"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintEnd_toStartOf="@id/savingPercentageTextView"
+        android:layout_marginTop="20dp"/>
+
+    <include layout="@layout/part_result" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,5 @@ data class Country(
     @StringRes val name: Int,
     val region: Region,
     @DrawableRes val bigFlag: Int,
-    @DrawableRes val smallFlag: Int,
     @StringRes val hint: Int
 )

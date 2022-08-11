@@ -38,10 +38,7 @@ class InMemoryCountriesRepository(
             return@withContext AVAILABLE_COUNTRIES.first { it.id == id }
         }
 
-    override suspend fun getCurrentCountry(): Country =
-        withContext(ioDispatcher.value) {
-            return@withContext currentCountry
-        }
+    override fun getCurrentCountry(): Country = currentCountry
 
     override fun setCurrentCountry(country: Country): Flow<Int> = flow {
         if (currentCountry != country) {
@@ -61,13 +58,13 @@ class InMemoryCountriesRepository(
     override fun listenCurrentCountry(): Flow<Country> = currentCountryFlow
 
     companion object {
+        val EMPTY_COUNTRY = Country(0, R.string.nan, Region.World, R.drawable.ic_aq, R.string.empty)
         private val AVAILABLE_COUNTRIES = listOf(
             Country(
                 1,
                 R.string.ac_name,
                 Region.Africa,
                 R.drawable.ic_ac,
-                R.drawable.ic_ac_small,
                 R.string.ac_hint
             ),
             Country(
@@ -75,7 +72,6 @@ class InMemoryCountriesRepository(
                 R.string.ad_name,
                 Region.Europe,
                 R.drawable.ic_ad,
-                R.drawable.ic_ad_small,
                 R.string.ad_hint
             ),
             Country(
@@ -83,7 +79,6 @@ class InMemoryCountriesRepository(
                 R.string.ae_name,
                 Region.Asia,
                 R.drawable.ic_ae,
-                R.drawable.ic_ae_small,
                 R.string.ae_hint
             ),
             Country(
@@ -91,7 +86,6 @@ class InMemoryCountriesRepository(
                 R.string.af_name,
                 Region.Asia,
                 R.drawable.ic_af,
-                R.drawable.ic_af_small,
                 R.string.af_hint
             ),
             Country(
@@ -99,7 +93,6 @@ class InMemoryCountriesRepository(
                 R.string.ag_name,
                 Region.NorthAmerica,
                 R.drawable.ic_ag,
-                R.drawable.ic_ag_small,
                 R.string.ag_hint
             ),
             Country(
@@ -107,10 +100,8 @@ class InMemoryCountriesRepository(
                 R.string.ai_name,
                 Region.NorthAmerica,
                 R.drawable.ic_ai,
-                R.drawable.ic_ai_small,
                 R.string.ai_hint
             ),
-
         )
     }
 

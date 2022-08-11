@@ -1,30 +1,31 @@
-package com.kigya.quaso.views.home
+package com.kigya.quaso.views.choise
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import com.kigya.foundation.views.BaseFragment
 import com.kigya.foundation.views.BaseScreen
 import com.kigya.foundation.views.screenViewModel
-import com.kigya.quaso.databinding.FragmentHomeBinding
+import com.kigya.quaso.databinding.FragmentSelectCountryBinding
 import com.kigya.quaso.views.collectFlow
 import com.kigya.quaso.views.onTryAgain
 import com.kigya.quaso.views.renderSimpleResult
 
-class HomeFragment : BaseFragment() {
+class SelectCountryFragment : BaseFragment() {
 
     class Screen : BaseScreen
 
-    override val viewModel by screenViewModel<HomeViewModel>()
+    override val viewModel by screenViewModel<SelectCountryViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val adapter = RegionsAdapter(viewModel)
+        val binding = FragmentSelectCountryBinding.inflate(inflater, container, false)
+        val adapter = CountriesAdapter(viewModel, viewModel.resources)
 
         with(binding) {
             collectFlow(viewModel.viewState) { result ->
@@ -33,34 +34,24 @@ class HomeFragment : BaseFragment() {
                     setupProgress(viewState)
                 }
             }
-            viewModel.totalPoints.observe(viewLifecycleOwner) {
-                pointsStatus.text = it
-            }
-            viewModel.latestMode.observe(viewLifecycleOwner) {
-                latestPlayModeText.text = it
-            }
-            viewModel.latestPoints.observe(viewLifecycleOwner) {
-                latestPointsText.text = it
-            }
             onTryAgain(root, viewModel::tryAgain)
         }
+
         return binding.root
     }
 
-    private fun FragmentHomeBinding.setupProgress(viewState: HomeViewModel.ViewState) {
+    private fun FragmentSelectCountryBinding.setupProgress(viewState: SelectCountryViewModel.ViewState) {
         saveProgressGroup.visibility =
             if (viewState.showLoadingProgressBar) View.VISIBLE else View.GONE
         saveProgressBar.progress = viewState.saveProgressPercentage
         savingPercentageTextView.text = viewState.saveProgressPercentageMessage
     }
 
-    private fun FragmentHomeBinding.setupRecyclerView(
-        adapter: RegionsAdapter,
-        viewState: HomeViewModel.ViewState
+    private fun FragmentSelectCountryBinding.setupRecyclerView(
+        adapter: CountriesAdapter,
+        viewState: SelectCountryViewModel.ViewState
     ) {
-        adapter.items = viewState.regionsList
-        regionsRecyclerView.adapter = adapter
+        adapter.items = viewState.countries
+        countriesRecyclerView.adapter = adapter
     }
 }
-
-

@@ -25,7 +25,7 @@ interface CountriesRepository : Repository {
     /**
      * Get current country.
      */
-    suspend fun getCurrentCountry(): Country
+    fun getCurrentCountry(): Country
 
     /**
      * Set the specified country as current.

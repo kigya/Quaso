@@ -44,6 +44,7 @@
         tools:text="Europe" />
 
     <ImageView
+        android:id="@+id/hintButton"
         style="@style/wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:clickable="true"
@@ -181,97 +182,6 @@
         app:layout_constraintTop_toTopOf="@id/flag"
         tools:viewBindingIgnore="true" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/placeholder_first"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/guideline_margin"
-        android:src="@drawable/ic_xx_4"
-        app:layout_constraintEnd_toStartOf="@id/placeholder_second"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/flag"
-        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/placeholder_second"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/guideline_margin"
-        android:src="@drawable/ic_xx_4"
-        app:layout_constraintEnd_toStartOf="@id/placeholder_third"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/placeholder_first"
-        app:layout_constraintTop_toBottomOf="@id/flag"
-        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/placeholder_third"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/guideline_margin"
-        android:src="@drawable/ic_xx_4"
-        app:layout_constraintEnd_toStartOf="@id/placeholder_fourth"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/placeholder_second"
-        app:layout_constraintTop_toBottomOf="@id/flag"
-        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/placeholder_fourth"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/guideline_margin"
-        android:src="@drawable/ic_xx_4"
-        app:layout_constraintEnd_toStartOf="@id/placeholder_fifth"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/placeholder_third"
-        app:layout_constraintTop_toBottomOf="@id/flag"
-        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/placeholder_fifth"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/guideline_margin"
-        android:src="@drawable/ic_xx_4"
-        app:layout_constraintEnd_toStartOf="@id/placeholder_sixth"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/placeholder_fourth"
-        app:layout_constraintTop_toBottomOf="@id/flag"
-        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
-
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/placeholder_sixth"
-        style="@style/wrap_content"
-        android:layout_marginTop="@dimen/guideline_margin"
-        android:src="@drawable/ic_xx_4"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/placeholder_fifth"
-        app:layout_constraintTop_toBottomOf="@id/flag"
-        app:shapeAppearanceOverlay="@style/rounded_corner_placeholder" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierPlaceholder"
-        style="@style/wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="
-        placeholder_first, placeholder_second,
-        placeholder_third, placeholder_fourth,
-        placeholder_fifth, placeholder_sixth" />
-
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:background="@drawable/search_background"
-        android:closeIcon="@drawable/ic_baseline_close_24"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search for a country"
-        android:searchIcon="@drawable/ic_search_icon"
-        android:theme="@style/ThemeOverlay.search"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/barrierPlaceholder" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
         android:layout_width="0dp"
@@ -287,8 +197,32 @@
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@id/guidelineStart" />
 
-    <include
-        layout="@layout/part_result"
-        android:visibility="gone" />
+    <TextView
+        android:id="@+id/countryPlaceholder"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/default_margin"
+        android:background="@drawable/countries_placeholder_rounded"
+        android:fontFamily="@font/nunito_sans"
+        android:gravity="center"
+        android:text="@string/nan"
+        app:layout_constraintStart_toStartOf="@id/flag"
+        app:layout_constraintTop_toBottomOf="@id/flag"
+        app:layout_constraintWidth_percent="0.65"
+        tools:text="Antugua and Barbuda" />
+
+    <ImageButton
+        android:id="@+id/changeChoiseButton"
+        style="@style/fill_constraint"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/countries_placeholder_rounded"
+        android:contentDescription="@string/change_country_image_button"
+        android:src="@drawable/ic_change_icon"
+        app:layout_constraintBottom_toBottomOf="@id/countryPlaceholder"
+        app:layout_constraintEnd_toEndOf="@id/flag"
+        app:layout_constraintStart_toEndOf="@id/countryPlaceholder"
+        app:layout_constraintTop_toTopOf="@id/countryPlaceholder" />
+
+    <include layout="@layout/part_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

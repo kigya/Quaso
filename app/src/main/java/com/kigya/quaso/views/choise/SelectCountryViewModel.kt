@@ -1,8 +1,7 @@
-package com.kigya.quaso.views.home
+package com.kigya.quaso.views.choise
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.appcompat.widget.SearchView
+import androidx .lifecycle.viewModelScope
 import com.kigya.foundation.model.*
 import com.kigya.foundation.sideeffects.navigator.Navigator
 import com.kigya.foundation.sideeffects.resources.Resources
@@ -12,76 +11,52 @@ import com.kigya.foundation.views.BaseViewModel
 import com.kigya.foundation.views.ResultFlow
 import com.kigya.foundation.views.ResultMutableStateFlow
 import com.kigya.quaso.R
-import com.kigya.quaso.model.game.Game
+import com.kigya.quaso.model.countries.Country
+import com.kigya.quaso.model.countries.InMemoryCountriesRepository
 import com.kigya.quaso.model.game.GameRepositoryImpl
-import com.kigya.quaso.model.region.Region
-import com.kigya.quaso.model.region.RegionsRepositoryImpl
-import com.kigya.quaso.views.quiz.QuizFragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.sample
 
 
-class HomeViewModel(
-    private val toasts: Toasts,
+class SelectCountryViewModel(
+    val resources: Resources,
     private val navigator: Navigator,
-    private val resources: Resources,
-    private val regionRepository: RegionsRepositoryImpl,
-    private val gameRepository: GameRepositoryImpl
-) : BaseViewModel(), RegionsAdapter.Listener {
+    private val toasts: Toasts,
+    private val gameRepository: GameRepositoryImpl,
+    private val countriesRepository: InMemoryCountriesRepository,
+) : BaseViewModel(), CountriesAdapter.Listener {
 
     private val _instantSaveInProgress = MutableStateFlow<Progress>(EmptyProgress)
     private val _sampledSaveInProgress = MutableStateFlow<Progress>(EmptyProgress)
-    private val _availableRegions: ResultMutableStateFlow<List<Region>> = MutableStateFlow(
+    private val _availableCountries: ResultMutableStateFlow<List<Country>> = MutableStateFlow(
         PendingResult()
     )
 
-
-    val viewState: ResultFlow<ViewState> = combine(
-        _availableRegions,
+    val viewState: ResultFlow<SelectCountryViewModel.ViewState> = combine(
+        _availableCountries,
         _instantSaveInProgress,
         _sampledSaveInProgress,
         ::mergeSources
     )
 
-    val totalPoints: LiveData<String> = viewState
-        .map { result ->
-            return@map if (result is SuccessResult) result.data.totalPointsTitle
-            else resources.getString(R.string.nan)
-        }.asLiveData()
-
-    val latestPoints: LiveData<String> = viewState
-        .map { result ->
-            return@map if (result is SuccessResult) result.data.latestPoints
-            else resources.getString(R.string.nan)
-        }.asLiveData()
-
-    val latestMode: LiveData<String> = viewState
-        .map { result ->
-            return@map if (result is SuccessResult) result.data.latestMode
-            else resources.getString(R.string.nan)
-        }.asLiveData()
-
     init {
         load()
     }
 
-    @OptIn(FlowPreview::class)
-    override fun onRegionChosen(region: Region) {
+    override fun onCountryChosen(country: Country) {
         if (_instantSaveInProgress.value.isInProgress()) return
-        onItemClicked(region)
+        onItemClicked(country)
     }
 
     @FlowPreview
-    fun onItemClicked(region: Region) = viewModelScope.launch {
+    fun onItemClicked(country: Country) = viewModelScope.launch {
         try {
             _instantSaveInProgress.value = PercentageProgress.START
             _sampledSaveInProgress.value = PercentageProgress.START
 
-            val game = Game(region, 0)
-            val flow = gameRepository.setLatestGame(game).finiteShareIn(this)
+            val flow = gameRepository.setCurrentChoise(country).finiteShareIn(this)
 
             val instantJob = async {
                 flow.collect { percentage ->
@@ -99,7 +74,7 @@ class HomeViewModel(
             instantJob.await()
             sampledJob.await()
 
-            navigator.launch(QuizFragment.Screen(game))
+            navigator.goBack()
         } catch (e: Exception) {
             if (e !is CancellationException)
                 toasts.toast(resources.getString(R.string.error_happened))
@@ -110,46 +85,37 @@ class HomeViewModel(
     }
 
     private fun mergeSources(
-        regions: Result<List<Region>>,
+        countries: Result<List<Country>>,
         instantSaveInProgress: Progress,
         sampledSaveInProgress: Progress
     ): Result<ViewState> {
-        return regions.map { regionsList ->
+        return countries.map { countryList ->
             ViewState(
-                regionsList,
+                countries = countryList,
                 showLoadingProgressBar = instantSaveInProgress.isInProgress(),
                 saveProgressPercentage = instantSaveInProgress.getPercentage(),
                 saveProgressPercentageMessage = resources.getString(
                     R.string.percentage_value,
                     sampledSaveInProgress.getPercentage()
                 ),
-                totalPointsTitle = resources.getString(
-                    R.string.points_value,
-                    gameRepository.getTotalPoints(resources)
-                ),
-                latestPoints = gameRepository.getLatestPoints(resources).toString(),
-                latestMode = gameRepository.getLatestMode(resources)
             )
         }
     }
 
     private fun load() {
-        into(_availableRegions) {
+        into(_availableCountries) {
             delay(1000) // emitation of the first result is delayed to show the progress bar
-            regionRepository.getAvailableRegions()
+            countriesRepository.getAvailableCountries().sortedBy { resources.getString(it.name) }
         }
     }
 
     fun tryAgain() = load()
 
     data class ViewState(
-        val regionsList: List<Region>,
+        val countries: List<Country>,
         val showLoadingProgressBar: Boolean,
         val saveProgressPercentage: Int,
         val saveProgressPercentageMessage: String,
-        val totalPointsTitle: String,
-        val latestPoints: String,
-        val latestMode: String
     )
 
 }
