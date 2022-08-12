@@ -22,13 +22,11 @@ class DialogsSideEffectImpl(
         requireActivity().lifecycle.addObserver(this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         val record = retainedState.record ?: return
         showDialog(record)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
         removeDialog()
     }

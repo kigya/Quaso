@@ -44,6 +44,11 @@ class HomeFragment : BaseFragment() {
             }
             onTryAgain(root, viewModel::tryAgain)
         }
+
+        this.apply {
+            exitTransition = viewModel.getExitTransition()
+        }
+
         return binding.root
     }
 

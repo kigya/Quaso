@@ -3,6 +3,7 @@ package com.kigya.quaso.views.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.transition.MaterialFadeThrough
 import com.kigya.foundation.model.*
 import com.kigya.foundation.sideeffects.navigator.Navigator
 import com.kigya.foundation.sideeffects.resources.Resources
@@ -128,7 +129,7 @@ class HomeViewModel(
                     gameRepository.getTotalPoints(resources)
                 ),
                 latestPoints = gameRepository.getLatestPoints(resources).toString(),
-                latestMode = gameRepository.getLatestMode(resources)
+                latestMode = gameRepository.getLatestMode(resources).toString()
             )
         }
     }
@@ -141,6 +142,8 @@ class HomeViewModel(
     }
 
     fun tryAgain() = load()
+
+    fun getExitTransition() = MaterialFadeThrough().apply { duration = 500 }
 
     data class ViewState(
         val regionsList: List<Region>,

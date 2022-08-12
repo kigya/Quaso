@@ -1,10 +1,14 @@
 package com.kigya.quaso.views.quiz
 
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import androidx.core.util.rangeTo
 import androidx.core.view.isVisible
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.kigya.foundation.model.PendingResult
 import com.kigya.foundation.model.Result
 import com.kigya.foundation.model.takeSuccess
@@ -44,10 +48,9 @@ class QuizFragmentViewModel(
         savedStateHandle.getMutableStateFlow(CURRENT_QUESTION, 1)
 
     var choiseCountry: Country = gameRepository.getCurrentChoise()
-
     var currentAttempt = gameRepository.getCurrentAttempt()
-
     val region = screen.game.region
+    var isCountryChosen = true
 
     init {
         load(region)
@@ -98,25 +101,38 @@ class QuizFragmentViewModel(
     }
 
     fun onTrigger(list: List<ImageView>) {
-        if (gameRepository.getCurrentChoise().id != (_currentCountry.value.takeSuccess()?.id
-                ?: 0)
-        ) {
-            gameRepository.setCurrentAttempt(gameRepository.getCurrentAttempt() + 1)
-            restoreOverlay(list)
-            list.find { it.isVisible }?.visibility = View.INVISIBLE
-            list.forEachIndexed { index, imageView ->
-                gameRepository.checkVisibilityList[index] = imageView.isVisible
+        if (isCountryChosen) {
+            if ((gameRepository.getCurrentChoise().id != (_currentCountry.value.takeSuccess()?.id
+                    ?: 0) && (gameRepository.getCurrentAttempt() < 6))
+            ) {
+                gameRepository.setCurrentAttempt(gameRepository.getCurrentAttempt() + 1)
+                restoreOverlay(list)
+                list.find { it.isVisible }?.visibility = View.INVISIBLE
+                list.forEachIndexed { index, imageView ->
+                    gameRepository.checkVisibilityList[index] = imageView.isVisible
+                }
+            } else {
+                val currentPoints = gameRepository.getCurrentAttempt()
+                _currentCountry.value.takeSuccess()?.name?.let { resources.getString(it) }
+                    ?.let { toasts.toast("$it: +${7 - currentPoints}") }
+                gameRepository.setTotalPoints(
+                    resources,
+                    gameRepository.getTotalPoints(resources) + 7 - currentPoints
+                )
+                gameRepository.setLatestMode(resources, region.nameFull)
+                gameRepository.setLatestsPoints(resources, 7 - currentPoints)
+                resetState()
             }
         } else {
-            toasts.toast("Bingo!")
-            resetState()
+            isCountryChosen = false
+            restoreOverlay(list)
         }
 
     }
 
     private fun resetState() {
-        countriesRepository.setCurrentCountry(InMemoryCountriesRepository.EMPTY_COUNTRY)
-        gameRepository.setCurrentChoise(InMemoryCountriesRepository.EMPTY_COUNTRY)
+        countriesRepository.resetCurrentCountry(InMemoryCountriesRepository.EMPTY_COUNTRY)
+        gameRepository.resetCurrentChoise(InMemoryCountriesRepository.EMPTY_COUNTRY)
         gameRepository.setCurrentAttempt(0)
         gameRepository.checkVisibilityList.forEachIndexed { index, _ ->
             gameRepository.checkVisibilityList[index] = true
@@ -133,7 +149,7 @@ class QuizFragmentViewModel(
         val currentAttempt: Int
     )
 
-    private suspend fun createHintDialog(): DialogConfig {
+    private fun createHintDialog(): DialogConfig {
         return DialogConfig(
             title = "Hint!",
             message = resources.getString(_currentCountry.value.takeSuccess()?.hint ?: 0),
@@ -149,6 +165,25 @@ class QuizFragmentViewModel(
         resetState()
         navigator.goBack()
     }
+
+    override fun onResult(result: Any) {
+        super.onResult(result)
+        isCountryChosen = result as Boolean
+    }
+
+    fun getExitTranstion(): Any = MaterialSharedAxis(
+        MaterialSharedAxis.Z, true
+    ).apply {
+        duration = 300
+    }
+
+    fun getReenterTransition(): Any = MaterialSharedAxis(
+        MaterialSharedAxis.Z, false
+    ).apply {
+        duration = 500
+    }
+
+    fun getEnterTransition() = MaterialFadeThrough().apply { duration = 500 }
 
     companion object {
         private const val CURRENT_QUESTION = "current_question"

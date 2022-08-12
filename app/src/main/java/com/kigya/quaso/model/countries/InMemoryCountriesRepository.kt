@@ -55,6 +55,10 @@ class InMemoryCountriesRepository(
         }
     }.flowOn(ioDispatcher.value)
 
+    override fun resetCurrentCountry(country: Country) {
+        currentCountry = country
+    }
+
     override fun listenCurrentCountry(): Flow<Country> = currentCountryFlow
 
     companion object {

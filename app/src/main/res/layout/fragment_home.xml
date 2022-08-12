@@ -177,16 +177,7 @@
         android:id="@+id/saveProgressGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="savingHintTextView,savingPercentageTextView,saveProgressBar" />
-
-    <TextView
-        android:id="@+id/savingHintTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/please_wait"
-        android:fontFamily="@font/nunito_sans"
-        app:layout_constraintStart_toStartOf="@id/saveProgressBar"
-        app:layout_constraintBottom_toTopOf="@id/saveProgressBar"/>
+        app:constraint_referenced_ids="savingPercentageTextView,saveProgressBar" />
 
     <TextView
         android:id="@+id/savingPercentageTextView"

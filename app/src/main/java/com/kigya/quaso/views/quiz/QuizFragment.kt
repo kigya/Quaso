@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.kigya.foundation.views.BaseFragment
 import com.kigya.foundation.views.BaseScreen
 import com.kigya.foundation.views.screenViewModel
@@ -43,6 +46,7 @@ class QuizFragment : BaseFragment() {
                 }
             }
         }
+        setTransitions()
 
         binding.changeChoiseButton.setOnClickListener { viewModel.onChangePressed() }
         binding.hintButton.setOnClickListener { viewModel.showHintDialog() }
@@ -51,6 +55,14 @@ class QuizFragment : BaseFragment() {
         binding.backIcon.setOnClickListener { viewModel.onReturnPressed() }
 
         return binding.root
+    }
+
+    private fun setTransitions() {
+        this.apply {
+            enterTransition = viewModel.getEnterTransition()
+            exitTransition = viewModel.getExitTranstion()
+            reenterTransition = viewModel.getReenterTransition()
+        }
     }
 
     private fun FragmentQuizBinding.notifyUpdates() {

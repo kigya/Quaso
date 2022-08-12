@@ -62,40 +62,32 @@
         android:id="@+id/countriesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/search_view"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
         tools:listitem="@layout/item_country"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layoutAnimation="@anim/layout_animation"/>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/saveProgressGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="savingHintTextView,savingPercentageTextView,saveProgressBar" />
-
-    <TextView
-        android:id="@+id/savingHintTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/please_wait"
-        android:fontFamily="@font/nunito_sans"
-        app:layout_constraintStart_toStartOf="@id/saveProgressBar"
-        app:layout_constraintBottom_toTopOf="@id/saveProgressBar"/>
+        app:constraint_referenced_ids="savingPercentageTextView,saveProgressBar" />
 
     <TextView
         android:id="@+id/savingPercentageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/nunito_sans_semibold"
         android:textSize="16sp"
-        tools:text="100%"
+        app:layout_constraintBottom_toBottomOf="@id/saveProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/saveProgressBar"
-        app:layout_constraintBottom_toBottomOf="@id/saveProgressBar"
-        android:fontFamily="@font/nunito_sans_semibold" />
+        tools:text="100%" />
 
     <ProgressBar
         android:id="@+id/saveProgressBar"
@@ -103,14 +95,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="100dp"
         android:max="100"
-        tools:progress="33"
+        app:layout_constraintEnd_toStartOf="@id/savingPercentageTextView"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintEnd_toStartOf="@id/savingPercentageTextView"
-        android:layout_marginTop="20dp"/>
+        tools:progress="33" />
 
     <include layout="@layout/part_result" />
 

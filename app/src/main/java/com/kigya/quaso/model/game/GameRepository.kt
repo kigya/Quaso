@@ -21,11 +21,17 @@ interface GameRepository : Repository {
 
     fun setCurrentChoise(country: Country): Flow<Int>
 
+    fun resetCurrentChoise(country: Country)
+
     fun setLatestGame(game: Game): Flow<Int>
 
     fun setCurrentAttempt(int: Int)
 
-    fun setTotalPoints(int: Int): Flow<Int>
+    fun setTotalPoints(resources: Resources, int: Int)
+
+    fun setLatestsPoints(resources: Resources, int: Int)
+
+    fun setLatestMode(resources: Resources, string: String)
 
     fun listenCurrentChoise(): Flow<Country>
 

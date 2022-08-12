@@ -32,6 +32,8 @@ interface CountriesRepository : Repository {
      */
     fun setCurrentCountry(country: Country): Flow<Int>
 
+    fun resetCurrentCountry(country: Country)
+
     /**
      * Listen for further changes of the current country.
      */

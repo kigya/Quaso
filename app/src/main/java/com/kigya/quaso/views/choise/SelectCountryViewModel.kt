@@ -1,7 +1,8 @@
 package com.kigya.quaso.views.choise
 
 import androidx.appcompat.widget.SearchView
-import androidx .lifecycle.viewModelScope
+import androidx.lifecycle.viewModelScope
+import com.google.android.material.transition.MaterialSharedAxis
 import com.kigya.foundation.model.*
 import com.kigya.foundation.sideeffects.navigator.Navigator
 import com.kigya.foundation.sideeffects.resources.Resources
@@ -26,7 +27,7 @@ class SelectCountryViewModel(
     private val toasts: Toasts,
     private val gameRepository: GameRepositoryImpl,
     private val countriesRepository: InMemoryCountriesRepository,
-) : BaseViewModel(), CountriesAdapter.Listener {
+) : BaseViewModel(), CountriesAdapter.Listener, android.widget.SearchView.OnQueryTextListener {
 
     private val _instantSaveInProgress = MutableStateFlow<Progress>(EmptyProgress)
     private val _sampledSaveInProgress = MutableStateFlow<Progress>(EmptyProgress)
@@ -41,12 +42,14 @@ class SelectCountryViewModel(
         ::mergeSources
     )
 
+    val adapter: CountriesAdapter = CountriesAdapter(this, resources)
+
     init {
         load()
     }
 
+    @OptIn(FlowPreview::class)
     override fun onCountryChosen(country: Country) {
-        if (_instantSaveInProgress.value.isInProgress()) return
         onItemClicked(country)
     }
 
@@ -74,7 +77,7 @@ class SelectCountryViewModel(
             instantJob.await()
             sampledJob.await()
 
-            navigator.goBack()
+            navigator.goBack(true)
         } catch (e: Exception) {
             if (e !is CancellationException)
                 toasts.toast(resources.getString(R.string.error_happened))
@@ -109,6 +112,10 @@ class SelectCountryViewModel(
         }
     }
 
+    fun onReturnPressed() {
+        navigator.goBack(false)
+    }
+
     fun tryAgain() = load()
 
     data class ViewState(
@@ -117,5 +124,27 @@ class SelectCountryViewModel(
         val saveProgressPercentage: Int,
         val saveProgressPercentageMessage: String,
     )
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        adapter.filter.filter(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        adapter.filter.filter(newText)
+        return false
+    }
+
+    fun getEnterTransition(): Any = MaterialSharedAxis(
+        MaterialSharedAxis.Z, true
+    ).apply {
+        duration = 1000
+    }
+
+    fun getReturnTransition(): Any = MaterialSharedAxis(
+        MaterialSharedAxis.Z, false
+    ).apply {
+        duration = 500
+    }
 
 }

@@ -33,7 +33,7 @@
     <string name="ad_hint">The only country on earth where the official language of is Catalan.</string>
     <string name="ae_name">United Arab Emirates</string>
     <string name="ae_hint">Six of the world’s tallest hotels are in the this country.</string>
-    <string name="af_name">Afganinstan</string>
+    <string name="af_name">Afganistan</string>
     <string name="af_hint">This country is the world’s largest producer of opium.</string>
     <string name="ag_name">Antigua and Barbuda</string>
     <string name="ag_hint">Country name means “Old” in Spanish, named by Christopher Columbus, who first discover the island, in honor of the Seville Cathedral of Santa Maria La Antigua.</string>
@@ -44,6 +44,7 @@
     <string name="change_country_image_button">Change country image button</string>
     <string name="empty">Empty!</string>
     <string name="aq">Antarctica</string>
+    <string name="skip">Skip</string>
 
     <string-array name="names">
         <item>@string/ac_name</item>

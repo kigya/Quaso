@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
+import androidx.core.view.doOnPreDraw
+import com.google.android.material.transition.MaterialSharedAxis
 import com.kigya.foundation.views.BaseFragment
 import com.kigya.foundation.views.BaseScreen
 import com.kigya.foundation.views.screenViewModel
@@ -25,19 +26,29 @@ class SelectCountryFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentSelectCountryBinding.inflate(inflater, container, false)
-        val adapter = CountriesAdapter(viewModel, viewModel.resources)
 
         with(binding) {
             collectFlow(viewModel.viewState) { result ->
                 renderSimpleResult(binding.root, result) { viewState ->
-                    setupRecyclerView(adapter, viewState)
+                    setupRecyclerView(viewState)
                     setupProgress(viewState)
                 }
             }
+            searchView.setOnQueryTextListener(viewModel)
+            backIcon.setOnClickListener { viewModel.onReturnPressed() }
             onTryAgain(root, viewModel::tryAgain)
         }
 
+        setTransitions()
+
         return binding.root
+    }
+
+    private fun setTransitions() {
+        this.apply {
+            enterTransition = viewModel.getEnterTransition()
+            returnTransition = viewModel.getReturnTransition()
+        }
     }
 
     private fun FragmentSelectCountryBinding.setupProgress(viewState: SelectCountryViewModel.ViewState) {
@@ -48,10 +59,10 @@ class SelectCountryFragment : BaseFragment() {
     }
 
     private fun FragmentSelectCountryBinding.setupRecyclerView(
-        adapter: CountriesAdapter,
         viewState: SelectCountryViewModel.ViewState
     ) {
-        adapter.items = viewState.countries
-        countriesRecyclerView.adapter = adapter
+        viewModel.adapter.itemsFiltered = viewState.countries
+        viewModel.adapter.items = viewState.countries
+        countriesRecyclerView.adapter = viewModel.adapter
     }
 }

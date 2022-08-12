@@ -76,17 +76,19 @@ class GameRepositoryImpl(
             Context.MODE_PRIVATE
         ).getInt(TOTAL_POINTS, 0)
 
-    override fun getLatestMode(resources: Resources): String =
-        resources.getSharedPreferences(
+    override fun getLatestMode(resources: Resources): String {
+        val i = resources.getSharedPreferences(
             POINTS_PREFERENCES,
             Context.MODE_PRIVATE
-        ).getString(LATEST_MODE, resources.getString(R.string.nan)).toString()
+        ).getString(LATEST_MODE, resources.getString(R.string.nan)) ?: "NaN"
+        return i
+    }
 
     override fun getLatestPoints(resources: Resources): Int =
         resources.getSharedPreferences(
             POINTS_PREFERENCES,
             Context.MODE_PRIVATE
-        ).getInt(LATEST_MODE, 0)
+        ).getInt(LATEST_POINTS, 0)
 
     override fun setCurrentChoise(country: Country): Flow<Int> = flow {
         if (this@GameRepositoryImpl.currentChoise != country) {
@@ -102,6 +104,10 @@ class GameRepositoryImpl(
             emit(100)
         }
     }.flowOn(ioDispatcher.value)
+
+    override fun resetCurrentChoise(country: Country) {
+        currentChoise = country
+    }
 
 
     override fun setLatestGame(game: Game): Flow<Int> = flow {
@@ -123,20 +129,23 @@ class GameRepositoryImpl(
         currentAttempt = int
     }
 
-    override fun setTotalPoints(int: Int): Flow<Int> = flow {
-        if (this@GameRepositoryImpl.totalPoints != int) {
-            var progress = 0
-            while (progress < 100) {
-                progress += 2
-                delay(10)
-                emit(progress)
-            }
-            totalPoints = int
-            totalPointsFlow.emit(int)
-        } else {
-            emit(100)
-        }
-    }.flowOn(ioDispatcher.value)
+    override fun setTotalPoints(resources: Resources, int: Int) = resources.getSharedPreferences(
+        POINTS_PREFERENCES,
+        Context.MODE_PRIVATE
+    ).edit().putInt(TOTAL_POINTS, int).apply()
+
+    override fun setLatestsPoints(resources: Resources, int: Int) = resources.getSharedPreferences(
+        POINTS_PREFERENCES,
+        Context.MODE_PRIVATE
+    ).edit().putInt(LATEST_POINTS, int).apply()
+
+
+    override fun setLatestMode(resources: Resources, string: String) =
+        resources.getSharedPreferences(
+            POINTS_PREFERENCES,
+            Context.MODE_PRIVATE
+        ).edit().putString(LATEST_MODE, string).apply()
+
 
     override fun listenCurrentChoise(): Flow<Country> {
         TODO("Not yet implemented")
@@ -151,9 +160,9 @@ class GameRepositoryImpl(
 
     companion object {
         val game = Game(Region.World, 0)
-        private const val POINTS_PREFERENCES = "points_preferences"
-        private const val TOTAL_POINTS = "total_points"
-        private const val LATEST_MODE = "total_points"
-        private const val LATEST_POINTS = "total_points"
+        const val POINTS_PREFERENCES = "points_preferences"
+        const val TOTAL_POINTS = "total_points"
+        const val LATEST_MODE = "latest_mode"
+        const val LATEST_POINTS = "latest_points"
     }
 }
