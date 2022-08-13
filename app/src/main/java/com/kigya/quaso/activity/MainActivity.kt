@@ -1,6 +1,8 @@
-package com.kigya.quaso
+package com.kigya.quaso.activity
 
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.kigya.foundation.sideeffects.SideEffectPluginsManager
 import com.kigya.foundation.sideeffects.dialogs.plugin.DialogsPlugin
 import com.kigya.foundation.sideeffects.intents.plugin.IntentsPlugin
@@ -9,12 +11,18 @@ import com.kigya.foundation.sideeffects.navigator.plugin.StackFragmentNavigator
 import com.kigya.foundation.sideeffects.resources.plugin.ResourcesPlugin
 import com.kigya.foundation.sideeffects.toasts.plugin.ToastsPlugin
 import com.kigya.foundation.views.activity.BaseActivity
+import com.kigya.quaso.R
 import com.kigya.quaso.views.home.HomeFragment
 
 /**
  * Container for all screens
  */
 class MainActivity : BaseActivity() {
+
+    /**
+     * Splash screen ViewModel.
+     */
+    private val splashViewModel: SpalshViewModel by viewModels()
 
     /**
      * Side-effect plugins registration for using inside ViewModel.
@@ -34,7 +42,19 @@ class MainActivity : BaseActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        showSplashScreen()
         setContentView(R.layout.activity_main)
+    }
+
+    /**
+     * Shows splash screen.
+     */
+    private fun showSplashScreen() {
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                splashViewModel.isLoading.value
+            }
+        }
     }
 
     /**

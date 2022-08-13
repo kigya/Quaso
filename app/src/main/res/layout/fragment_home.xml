@@ -30,7 +30,7 @@
         style="@style/wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:contentDescription="@string/small_app_logo"
-        android:src="@drawable/ic_app_logo"
+        android:src="@drawable/ic_app_icon"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toTopOf="parent" />
 

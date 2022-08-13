@@ -102,7 +102,7 @@
         style="@style/fill_constraint"
         android:contentDescription="@string/bottom_left_overlay_item"
         android:src="@drawable/ic_bottom_left_overlay"
-        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintBottom_toBottomOf="@id/bottomFlag"
         app:layout_constraintEnd_toStartOf="@id/leftEqual"
         app:layout_constraintStart_toStartOf="@id/flag"
         app:layout_constraintTop_toTopOf="@id/flagCenter" />
@@ -122,7 +122,7 @@
         style="@style/fill_constraint"
         android:contentDescription="@string/bottom_center_overlay_item"
         android:src="@drawable/ic_bottom_center_overlay"
-        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintBottom_toBottomOf="@id/bottomFlag"
         app:layout_constraintEnd_toEndOf="@id/rightEqual"
         app:layout_constraintStart_toStartOf="@id/leftEqual"
         app:layout_constraintTop_toTopOf="@id/flagCenter" />
@@ -143,7 +143,7 @@
         android:contentDescription="@string/bottom_right_overlay_item"
         android:src="@drawable/ic_bottom_right_overlay"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/flag"
+        app:layout_constraintBottom_toBottomOf="@id/bottomFlag"
         app:layout_constraintEnd_toEndOf="@id/flag"
         app:layout_constraintStart_toStartOf="@id/rightEqual"
         app:layout_constraintTop_toTopOf="@id/flagCenter" />
@@ -151,7 +151,7 @@
     <View
         android:id="@+id/flagCenter"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/flag"
         app:layout_constraintEnd_toEndOf="@id/flag"
@@ -181,6 +181,17 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/leftEqual"
         app:layout_constraintTop_toTopOf="@id/flag"
+        tools:viewBindingIgnore="true" />
+
+    <View
+        android:id="@+id/bottomFlag"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:visibility="invisible"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/flag"
         tools:viewBindingIgnore="true" />
 
     <com.google.android.material.button.MaterialButton
