@@ -12,7 +12,7 @@ import java.lang.reflect.Constructor
 
 
 /**
- * Use this method for getting view-models from your fragments
+ * Getting view models from fragments delegate.
  */
 inline fun <reified VM : ViewModel> BaseFragment.screenViewModel() = viewModels<VM> {
     val application = requireActivity().application as BaseApplication

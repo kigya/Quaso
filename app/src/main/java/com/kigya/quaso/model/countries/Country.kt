@@ -4,6 +4,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.kigya.quaso.model.region.Region
 
+/**
+ * Represents a country.
+ */
 data class Country(
     val id: Long,
     @StringRes val name: Int,

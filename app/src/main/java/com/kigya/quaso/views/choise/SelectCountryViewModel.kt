@@ -1,6 +1,6 @@
 package com.kigya.quaso.views.choise
 
-import androidx.appcompat.widget.SearchView
+import android.widget.SearchView
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.transition.MaterialSharedAxis
 import com.kigya.foundation.model.*
@@ -20,39 +20,81 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.sample
 
-
+/**
+ * ViewModel which manages [SelectCountryFragment] screen.
+ */
 class SelectCountryViewModel(
     val resources: Resources,
     private val navigator: Navigator,
     private val toasts: Toasts,
     private val gameRepository: GameRepositoryImpl,
     private val countriesRepository: InMemoryCountriesRepository,
-) : BaseViewModel(), CountriesAdapter.Listener, android.widget.SearchView.OnQueryTextListener {
+) : BaseViewModel(), CountriesAdapter.Listener, SearchView.OnQueryTextListener {
 
+    /**
+     * Initial screen loading state of [MutableStateFlow] type.
+     */
     private val _instantSaveInProgress = MutableStateFlow<Progress>(EmptyProgress)
+    /**
+     * Initial screen loading state of [MutableStateFlow] type.
+     */
     private val _sampledSaveInProgress = MutableStateFlow<Progress>(EmptyProgress)
+    /**
+     * Initial screen state of [ResultMutableStateFlow] type.
+     */
     private val _availableCountries: ResultMutableStateFlow<List<Country>> = MutableStateFlow(
         PendingResult()
     )
 
-    val viewState: ResultFlow<SelectCountryViewModel.ViewState> = combine(
+    /**
+     * [CountriesAdapter] instance.
+     */
+    val adapter: CountriesAdapter = CountriesAdapter(this, resources)
+
+    /**
+     * Main destination (contains merged values from [_availableRegions], [_instantSaveInProgress] & [_sampledSaveInProgress])
+     */
+    val viewState: ResultFlow<ViewState> = combine(
         _availableCountries,
         _instantSaveInProgress,
         _sampledSaveInProgress,
         ::mergeSources
     )
 
-    val adapter: CountriesAdapter = CountriesAdapter(this, resources)
-
+    /**
+     * Init block is run at every time the class is instantiated.
+     */
     init {
         load()
     }
 
+    /**
+     * Overriding [SearchView.OnQueryTextListener.onQueryTextSubmit] method.
+     */
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        adapter.filter.filter(query)
+        return false
+    }
+
+    /**
+     * Overriding [SearchView.OnQueryTextListener.onQueryTextChange] method.
+     */
+    override fun onQueryTextChange(newText: String?): Boolean {
+        adapter.filter.filter(newText)
+        return false
+    }
+
+    /**
+     * Overriding [CountriesAdapter.Listener.onCountryChosen] method.
+     */
     @OptIn(FlowPreview::class)
     override fun onCountryChosen(country: Country) {
         onItemClicked(country)
     }
 
+    /**
+     * Actions to perform when [CountriesAdapter.Listener.onCountryChosen] is called.
+     */
     @FlowPreview
     fun onItemClicked(country: Country) = viewModelScope.launch {
         try {
@@ -66,14 +108,12 @@ class SelectCountryViewModel(
                     _instantSaveInProgress.value = PercentageProgress(percentage)
                 }
             }
-
             val sampledJob = async {
                 flow.sample(200) // emit the most actual progress every 200ms.
                     .collect { percentage ->
                         _sampledSaveInProgress.value = PercentageProgress(percentage)
                     }
             }
-
             instantJob.await()
             sampledJob.await()
 
@@ -87,6 +127,18 @@ class SelectCountryViewModel(
         }
     }
 
+    /**
+     * Transformation pure method for combining data from several input flows:
+     * - the result of fetching countries list (Result<List<Country>>)
+     * - [Progress] instance which indicates whether saving operation is in
+     *   progress or not
+     *
+     * All values above are merged into one [ViewState] instance:
+     * ```
+     * Flow<Result<List<Country>>> ----------+|
+     * Flow<Progress> -----------------------|--> Flow<Result<ViewState>>
+     * ```
+     */
     private fun mergeSources(
         countries: Result<List<Country>>,
         instantSaveInProgress: Progress,
@@ -105,6 +157,9 @@ class SelectCountryViewModel(
         }
     }
 
+    /**
+     * Loads countries list from [InMemoryCountriesRepository] and sets it to [_availableCountries] flow.
+     */
     private fun load() {
         into(_availableCountries) {
             delay(1000) // emitation of the first result is delayed to show the progress bar
@@ -112,39 +167,43 @@ class SelectCountryViewModel(
         }
     }
 
+    /**
+     * Do the same as [load] when error occurs.
+     */
+    fun tryAgain() = load()
+
+    /**
+     * Return screen back to [QuizFragment] screen without actions.
+     */
     fun onReturnPressed() {
         navigator.goBack(false)
     }
 
-    fun tryAgain() = load()
-
-    data class ViewState(
-        val countries: List<Country>,
-        val showLoadingProgressBar: Boolean,
-        val saveProgressPercentage: Int,
-        val saveProgressPercentageMessage: String,
-    )
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        adapter.filter.filter(query)
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        adapter.filter.filter(newText)
-        return false
-    }
-
+    /**
+     * Getting enter fragment transition.
+     */
     fun getEnterTransition(): Any = MaterialSharedAxis(
         MaterialSharedAxis.Z, true
     ).apply {
         duration = 1000
     }
 
+    /**
+     * Getting return fragment transition.
+     */
     fun getReturnTransition(): Any = MaterialSharedAxis(
         MaterialSharedAxis.Z, false
     ).apply {
         duration = 500
     }
 
+    /**
+     * ViewState class which is used to combine data from several input flows
+     */
+    data class ViewState(
+        val countries: List<Country>,
+        val showLoadingProgressBar: Boolean,
+        val saveProgressPercentage: Int,
+        val saveProgressPercentageMessage: String,
+    )
 }

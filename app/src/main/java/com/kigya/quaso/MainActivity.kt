@@ -16,6 +16,9 @@ import com.kigya.quaso.views.home.HomeFragment
  */
 class MainActivity : BaseActivity() {
 
+    /**
+     * Side-effect plugins registration for using inside ViewModel.
+     */
     override fun registerPlugins(manager: SideEffectPluginsManager) =
         with(receiver = manager) {
             val navigator = createNavigator()
@@ -26,12 +29,17 @@ class MainActivity : BaseActivity() {
             register(IntentsPlugin())
         }
 
+    /**
+     * Called when the activity is starting.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-
+    /**
+     * Creates a [StackFragmentNavigator] to simplified navigation between fragments.
+     */
     private fun createNavigator() = StackFragmentNavigator(
         containerId = R.id.fragmentContainer,
         animations = StackFragmentNavigator.Animations(

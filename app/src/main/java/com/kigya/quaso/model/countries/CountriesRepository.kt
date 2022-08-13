@@ -4,6 +4,9 @@ import com.kigya.foundation.model.Repository
 import com.kigya.quaso.model.region.Region
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Interface repository for countries.
+ */
 interface CountriesRepository : Repository {
 
     /**
@@ -11,32 +14,19 @@ interface CountriesRepository : Repository {
      */
     suspend fun getAvailableCountries(): List<Country>
 
-
     /**
      * Get the list of all available countries depends on region.
      */
     suspend fun getAvailableCountries(region: Region): List<Country>
 
     /**
-     * Get the country content by its ID
-     */
-    suspend fun getById(id: Long): Country
-
-    /**
-     * Get current country.
-     */
-    fun getCurrentCountry(): Country
-
-    /**
      * Set the specified country as current.
      */
     fun setCurrentCountry(country: Country): Flow<Int>
 
-    fun resetCurrentCountry(country: Country)
-
     /**
-     * Listen for further changes of the current country.
+     * Reset the current country to default.
      */
-    fun listenCurrentCountry(): Flow<Country>
+    fun resetCurrentCountry(country: Country)
 
 }

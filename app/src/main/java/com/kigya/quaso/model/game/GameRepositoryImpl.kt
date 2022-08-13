@@ -15,81 +15,103 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
+/**
+ * Simple in-memory implementation of [ColorsRepository]
+ */
 class GameRepositoryImpl(
     private val ioDispatcher: IoDispatcher
 ) : GameRepository {
 
+    /**
+     * Check list to store whether the element is hidden.
+     */
     var checkVisibilityList = mutableListOf(
         true, true, true, true, true, true
     )
 
+    /**
+     * Latest game.
+     */
     private var latestGame: Game = game
 
+    /**
+     * Current user choice.
+     */
     private var currentChoise: Country = InMemoryCountriesRepository.EMPTY_COUNTRY
 
+    /**
+     * Current user attempt.
+     */
     private var currentAttempt = 0
 
-    private var totalPoints = 0
-
-    private var latestPoints = 0
-
-    private var latestMode = "NaN"
-
-
-    private val totalPointsFlow = MutableSharedFlow<Int>(
-        replay = 0,
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-
+    /**
+     * Latest game flow.
+     */
     private val latestGameFlow = MutableSharedFlow<Game>(
         replay = 0,
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    private val currentQuestionNumberFlow = MutableSharedFlow<Int>(
-        replay = 0,
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-
+    /**
+     * Current choise flow.
+     */
     private val currentChoiseFlow = MutableSharedFlow<Country>(
         replay = 0,
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
+    /**
+     * Overriding [GameRepository.getLatestGame]
+     */
     override suspend fun getLatestGame(): Game =
         withContext(ioDispatcher.value) {
             return@withContext latestGame
         }
 
+    /**
+     * Overriding [GameRepository.getCurrentAttempt]
+     */
     override fun getCurrentAttempt(): Int = currentAttempt
 
+    /**
+     * Overriding [GameRepository.getCurrentChoise]
+     */
     override fun getCurrentChoise(): Country = currentChoise
 
 
+    /**
+     * Overriding [GameRepository.getTotalPoints]
+     */
     override fun getTotalPoints(resources: Resources): Int =
         resources.getSharedPreferences(
             POINTS_PREFERENCES,
             Context.MODE_PRIVATE
         ).getInt(TOTAL_POINTS, 0)
 
+    /**
+     * Overriding [GameRepository.getLatestMode]
+     */
     override fun getLatestMode(resources: Resources): String {
-        val i = resources.getSharedPreferences(
+        return resources.getSharedPreferences(
             POINTS_PREFERENCES,
             Context.MODE_PRIVATE
         ).getString(LATEST_MODE, resources.getString(R.string.nan)) ?: "NaN"
-        return i
     }
 
+    /**
+     * Overriding [GameRepository.getLatestPoints]
+     */
     override fun getLatestPoints(resources: Resources): Int =
         resources.getSharedPreferences(
             POINTS_PREFERENCES,
             Context.MODE_PRIVATE
         ).getInt(LATEST_POINTS, 0)
 
+    /**
+     * Overriding [GameRepository.setCurrentChoise]
+     */
     override fun setCurrentChoise(country: Country): Flow<Int> = flow {
         if (this@GameRepositoryImpl.currentChoise != country) {
             var progress = 0
@@ -105,11 +127,16 @@ class GameRepositoryImpl(
         }
     }.flowOn(ioDispatcher.value)
 
+    /**
+     * Overriding [GameRepository.resetCurrentChoise]
+     */
     override fun resetCurrentChoise(country: Country) {
         currentChoise = country
     }
 
-
+    /**
+     * Overriding [GameRepository.setLatestGame]
+     */
     override fun setLatestGame(game: Game): Flow<Int> = flow {
         if (this@GameRepositoryImpl.latestGame != game) {
             var progress = 0
@@ -125,39 +152,42 @@ class GameRepositoryImpl(
         }
     }.flowOn(ioDispatcher.value)
 
+    /**
+     * Overriding [GameRepository.setCurrentAttempt]
+     */
     override fun setCurrentAttempt(int: Int) {
         currentAttempt = int
     }
 
+    /**
+     * Overriding [GameRepository.setTotalPoints]
+     */
     override fun setTotalPoints(resources: Resources, int: Int) = resources.getSharedPreferences(
         POINTS_PREFERENCES,
         Context.MODE_PRIVATE
     ).edit().putInt(TOTAL_POINTS, int).apply()
 
+    /**
+     * Overriding [GameRepository.setLatestsPoints]
+     */
     override fun setLatestsPoints(resources: Resources, int: Int) = resources.getSharedPreferences(
         POINTS_PREFERENCES,
         Context.MODE_PRIVATE
     ).edit().putInt(LATEST_POINTS, int).apply()
 
 
+    /**
+     * Overriding [GameRepository.setLatestMode]
+     */
     override fun setLatestMode(resources: Resources, string: String) =
         resources.getSharedPreferences(
             POINTS_PREFERENCES,
             Context.MODE_PRIVATE
         ).edit().putString(LATEST_MODE, string).apply()
 
-
-    override fun listenCurrentChoise(): Flow<Country> {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun listenLatestGame(): Flow<Game> = latestGameFlow
-
-    override fun listenTotalPoints(): Flow<Int> = totalPointsFlow
-
-    override fun listenCurrentQuestionNumber(): Flow<Int> = currentQuestionNumberFlow
-
+    /**
+     * Constants.
+     */
     companion object {
         val game = Game(Region.World, 0)
         const val POINTS_PREFERENCES = "points_preferences"

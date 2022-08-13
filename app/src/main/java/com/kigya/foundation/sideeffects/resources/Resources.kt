@@ -1,14 +1,11 @@
 package com.kigya.foundation.sideeffects.resources
 
 import android.content.SharedPreferences
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.kigya.foundation.sideeffects.resources.plugin.ResourcesPlugin
 
 /**
  * Interface for accessing resources from view-models.
- * You need to add [ResourcesPlugin] to your activity before using this feature.
  */
 interface Resources {
 

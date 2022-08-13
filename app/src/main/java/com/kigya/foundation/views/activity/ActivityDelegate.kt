@@ -1,5 +1,6 @@
 package com.kigya.foundation.views.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -35,10 +36,29 @@ class ActivityDelegate(
         activity.lifecycle.addObserver(this)
     }
 
+    /**
+     * Call this method from [AppCompatActivity.onBackPressed].
+     * Example:
+     * ```
+     * override fun onBackPressed() {
+     *     if (!delegate.onBackPressed()) super.onBackPressed()
+     * }
+     * ```
+     */
     fun onBackPressed(): Boolean {
         return implementersHolder.implementations.any { it.onBackPressed() }
     }
 
+    /**
+     * Call this method from [AppCompatActivity.onSupportNavigateUp]
+     * If this method returns `null` you should call `super.onSupportNavigateUp()` if your activity.
+     * Example:
+     * ```
+     * override fun onSupportNavigateUp(): Boolean {
+     *    return delegate.onSupportNavigateUp() ?: super.onSupportNavigateUp()
+     * }
+     * ```
+     */
     fun onSupportNavigateUp(): Boolean? {
         for (service in implementersHolder.implementations) {
             val value = service.onSupportNavigateUp()
@@ -49,6 +69,9 @@ class ActivityDelegate(
         return null
     }
 
+    /**
+     * Call this method from [AppCompatActivity.onCreate].
+     */
     fun onCreate(savedInstanceState: Bundle?) {
         sideEffectPluginsManager.plugins.forEach { plugin ->
             setupSideEffectMediator(plugin)
@@ -57,6 +80,9 @@ class ActivityDelegate(
         implementersHolder.implementations.forEach { it.onCreate(savedInstanceState) }
     }
 
+    /**
+     * Call this method from [AppCompatActivity.onSaveInstanceState]
+     */
     fun onSavedInstanceState(outState: Bundle) {
         implementersHolder.implementations.forEach { it.onSaveInstanceState(outState) }
     }

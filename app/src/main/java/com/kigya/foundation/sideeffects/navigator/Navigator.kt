@@ -5,7 +5,6 @@ import com.kigya.foundation.views.BaseScreen
 
 /**
  * Side-effects interface for doing navigation from view-models.
- * You need to add [NavigatorPlugin] to your activity before using this feature.
  */
 interface Navigator {
 

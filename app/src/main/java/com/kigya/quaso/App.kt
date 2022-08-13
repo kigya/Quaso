@@ -14,10 +14,12 @@ import com.kigya.quaso.model.region.RegionsRepositoryImpl
  */
 class App : Application(), BaseApplication {
 
-    // holder classes are used because we have 2 dispatchers of the same type
     private val ioDispatcher = IoDispatcher() // for IO operations
     private val workerDispatcher = WorkerDispatcher() // for CPU-intensive operations
 
+    /**
+     * Singleton scope dependencies.
+     */
     override val singletonScopeDependencies: List<Any> = listOf(
         ioDispatcher,
         workerDispatcher,

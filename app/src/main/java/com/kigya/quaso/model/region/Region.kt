@@ -1,5 +1,8 @@
 package com.kigya.quaso.model.region
 
+/**
+ * Represents a region.
+ */
 enum class Region(val nameCut: String, val nameFull: String) {
     Europe("EU", "Europe"),
     Asia("AS", "Asia"),

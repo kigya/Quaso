@@ -2,6 +2,7 @@ package com.kigya.quaso.model.countries
 
 import com.kigya.foundation.model.coroutines.IoDispatcher
 import com.kigya.quaso.R
+import com.kigya.quaso.model.game.GameRepository
 import com.kigya.quaso.model.region.Region
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
@@ -11,35 +12,46 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
+/**
+ * Simple in-memory repository for countries.
+ */
 class InMemoryCountriesRepository(
     private val ioDispatcher: IoDispatcher
 ) : CountriesRepository {
 
+    /**
+     * Current country to guess.
+     */
     private var currentCountry: Country = AVAILABLE_COUNTRIES[0]
 
+    /**
+     * Current country flow.
+     */
     private val currentCountryFlow = MutableSharedFlow<Country>(
         replay = 0,
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
+    /**
+     * Overriding [CountriesRepository.getAvailableCountries]
+     */
     override suspend fun getAvailableCountries(): List<Country> =
         withContext(ioDispatcher.value) {
             return@withContext AVAILABLE_COUNTRIES
         }
 
+    /**
+     * Overriding [CountriesRepository.getAvailableCountries] by region.
+     */
     override suspend fun getAvailableCountries(region: Region): List<Country> =
         withContext(ioDispatcher.value) {
             return@withContext AVAILABLE_COUNTRIES.filter { it.region == region }
         }
 
-    override suspend fun getById(id: Long): Country =
-        withContext(ioDispatcher.value) {
-            return@withContext AVAILABLE_COUNTRIES.first { it.id == id }
-        }
-
-    override fun getCurrentCountry(): Country = currentCountry
-
+    /**
+     * Overriding [CountriesRepository.setCurrentCountry]
+     */
     override fun setCurrentCountry(country: Country): Flow<Int> = flow {
         if (currentCountry != country) {
             var progress = 0
@@ -55,12 +67,16 @@ class InMemoryCountriesRepository(
         }
     }.flowOn(ioDispatcher.value)
 
+    /**
+     * Overriding [CountriesRepository.resetCurrentCountry]
+     */
     override fun resetCurrentCountry(country: Country) {
         currentCountry = country
     }
 
-    override fun listenCurrentCountry(): Flow<Country> = currentCountryFlow
-
+    /**
+     * Constants and countries.
+     */
     companion object {
         val EMPTY_COUNTRY = Country(0, R.string.nan, Region.World, R.drawable.ic_aq, R.string.empty)
         private val AVAILABLE_COUNTRIES = listOf(

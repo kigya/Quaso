@@ -1,7 +1,5 @@
 package com.kigya.foundation
 
-import android.content.Context
-
 /**
  * Base interface for application classes
  */
