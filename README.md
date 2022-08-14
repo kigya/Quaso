@@ -21,4 +21,7 @@
 
 
 ## Demo
-![ezgif-3-150fe14ad8](https://user-images.githubusercontent.com/73034324/184529611-37f0af67-9e33-4623-8f42-9a36a4f2a135.gif)
+<img width="360" alt="image" src="https://user-images.githubusercontent.com/73034324/184529673-38ae1f1c-fde5-43ad-92e4-f4e2df93458c.png" width=30% heigth=30%>
+<img width="357" alt="image" src="https://user-images.githubusercontent.com/73034324/184529701-9017fb6e-4f96-451b-b590-d11a3064dc05.png" width=30% heigth=30%>
+<img width="361" alt="image" src="https://user-images.githubusercontent.com/73034324/184529712-38337dfc-b50b-4d32-bbc5-5572a1f8c3c2.png" width=30% heigth=30%>
+
