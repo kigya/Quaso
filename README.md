@@ -21,5 +21,4 @@
 
 
 ## Demo
-https://user-images.githubusercontent.com/73034324/178027099-6ac85f8a-27e5-45c4-b710-b6b9472142bc.mov![ezgif-3-150fe14ad8](https://user-images.githubusercontent.com/73034324/184529609-bade3114-5a05-4d1a-9599-ac537f0029c7.gif)
 ![ezgif-3-150fe14ad8](https://user-images.githubusercontent.com/73034324/184529611-37f0af67-9e33-4623-8f42-9a36a4f2a135.gif)
