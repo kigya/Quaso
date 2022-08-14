@@ -60,8 +60,11 @@ class HomeFragment : BaseFragment() {
         }
         setFragmentTransition()
 
+        onTryAgain(binding.root) { viewModel.tryAgain() }
+
         return binding.root
     }
+
 
     /**
      * Setup fragment with animations.

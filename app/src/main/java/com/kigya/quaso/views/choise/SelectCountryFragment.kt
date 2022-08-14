@@ -50,6 +50,8 @@ class SelectCountryFragment : BaseFragment() {
         }
         setTransitions()
 
+        onTryAgain(binding.root) { viewModel.tryAgain() }
+
         return binding.root
     }
 

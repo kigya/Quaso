@@ -185,6 +185,11 @@ class QuizFragmentViewModel(
     }
 
     /**
+     * Do the same as in load()
+     */
+    fun tryAgain() = load(region)
+
+    /**
      * Method that shows toast with correct answer.
      */
     private fun showToastCorrectAnswer(

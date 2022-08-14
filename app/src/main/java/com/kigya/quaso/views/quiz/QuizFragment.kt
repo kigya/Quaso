@@ -12,6 +12,7 @@ import com.kigya.quaso.R
 import com.kigya.quaso.databinding.FragmentQuizBinding
 import com.kigya.quaso.model.game.Game
 import com.kigya.quaso.views.collectFlow
+import com.kigya.quaso.views.onTryAgain
 import com.kigya.quaso.views.renderSimpleResult
 
 /**
@@ -63,6 +64,8 @@ class QuizFragment : BaseFragment() {
             countryPlaceholder.text = getString(viewModel.getCurrentChoise())
         }
         setTransitions()
+
+        onTryAgain(binding.root) { viewModel.tryAgain() }
 
         return binding.root
     }
