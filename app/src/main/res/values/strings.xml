@@ -39,20 +39,45 @@
     <string name="ag_hint">Country name means “Old” in Spanish, named by Christopher Columbus, who first discover the island, in honor of the Seville Cathedral of Santa Maria La Antigua.</string>
     <string name="ai_name">Anguilla</string>
     <string name="ai_hint">It was once known as “Snake Island”</string>
+    <string name="al_name">Albania</string>
+    <string name="al_hint">The world’s largest hydroelectricity producer. 100% of the country’s energy is hydroelectric.</string>
+    <string name="am_name">Armenia</string>
+    <string name="am_hint">The capital is one of the oldest cities in the world.</string>
+    <string name="ao_name">Angola</string>
+    <string name="ao_hint">Portuguese is the official language.</string>
+    <string name="ar_name">Argentina</string>
+    <string name="ar_hint">Has more psychologists per capita than any other country in the world.</string>
+    <string name="as_name">American Samoa</string>
+    <string name="as_hint">Weather stations detect rain 300 days out of 365 each year int his country.</string>
+    <string name="at_name">Austria</string>
+    <string name="at_hint">The world’s first zoo, founded in 1752, is still in operation here.</string>
+    <string name="au_name">Australia</string>
+    <string name="au_hint">This continent/country is home to Uluru, or Ayers Rock, a massive red sandstone formation in the Northern Territory that is sacred ground for aboriginals.</string>
+    <string name="aw_name">Aruba</string>
+    <string name="aw_hint">They have Dutch nationality.</string>
+    <string name="ax_name">Aland Islands</string>
+    <string name="ax_hint">It has 20,000 islands</string>
+    <string name="az_name">Azerbaijan</string>
+    <string name="az_hint">Folklore and superstition reign supreme in this former Soviet republic.</string>
+    <string name="ba_name">Bosnia and Herzegovina</string>
+    <string name="ba_hint">In southeast Europe believe that a network of 12,000-year-old pyramids exists within the country’s borders.</string>
+    <string name="bb_name">Barbados</string>
+    <string name="bb_hint">There’s a saying on this country that if a mongoose crosses the street in front of you, it signifies good luck.</string>
+    <string name="bd_name">Bangladesh</string>
+    <string name="bd_hint">This South Asian country is very warm — so warm, in fact, that the lowest temperature ever recorded was 2.6 degrees Celsius.</string>
+    <string name="be_name">Belgium</string>
+    <string name="be_hint">Chocolate is huge in this European country, which can produce some 600,000 tons of it per year across its more than 2,000 companies and shops specializing in the confection.</string>
+    <string name="bf_name">Burkina Faso</string>
+    <string name="bf_hint">Revolutionary Thomas Sankara is known as the “African Che Guevara” for his efforts, as president from 1983–87, to rid the country of corruption and environmental degradation while empowering women and boosting education and health-care access.</string>
+    <string name="bg_name">Bulgaria</string>
+    <string name="bg_hint">This ancient Balkan nation claims to have accidentally created yogurt some 4,000 years ago.</string>
+    <string name="bh_name">Bahrain</string>
+    <string name="bh_hint">Unlike in many of its Middle East neighbors, women are allowed to vote and run for office.</string>
     <string name="countries">Countries</string>
     <string name="guess">Guess</string>
     <string name="change_country_image_button">Change country image button</string>
     <string name="empty">Empty!</string>
     <string name="aq">Antarctica</string>
     <string name="skip">Skip</string>
-
-    <string-array name="names">
-        <item>@string/ac_name</item>
-        <item>@string/ad_name</item>
-        <item>@string/ae_name</item>
-        <item>@string/af_name</item>
-        <item>@string/ag_name</item>
-        <item>@string/ai_name</item>
-    </string-array>
 
 </resources>

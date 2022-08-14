@@ -10,6 +10,7 @@ import com.kigya.foundation.sideeffects.navigator.plugin.NavigatorPlugin
 import com.kigya.foundation.sideeffects.navigator.plugin.StackFragmentNavigator
 import com.kigya.foundation.sideeffects.resources.plugin.ResourcesPlugin
 import com.kigya.foundation.sideeffects.toasts.plugin.ToastsPlugin
+import com.kigya.foundation.views.BaseViewModel
 import com.kigya.foundation.views.activity.BaseActivity
 import com.kigya.quaso.R
 import com.kigya.quaso.views.home.HomeFragment
@@ -22,7 +23,7 @@ class MainActivity : BaseActivity() {
     /**
      * Splash screen ViewModel.
      */
-    private val splashViewModel: SpalshViewModel by viewModels()
+    private val splashViewModel: SplashViewModel by viewModels()
 
     /**
      * Side-effect plugins registration for using inside ViewModel.
@@ -49,7 +50,7 @@ class MainActivity : BaseActivity() {
     /**
      * Shows splash screen.
      */
-    private fun showSplashScreen() {
+    override fun showSplashScreen() {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 splashViewModel.isLoading.value

@@ -3,6 +3,7 @@ package com.kigya.foundation.views.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kigya.foundation.sideeffects.SideEffectPluginsManager
+import com.kigya.foundation.views.BaseViewModel
 
 /**
  * Base class to simplify the activity implementation.
@@ -38,6 +39,8 @@ abstract class BaseActivity : AppCompatActivity(), ActivityDelegateHolder {
     override fun onSupportNavigateUp(): Boolean {
         return delegate.onSupportNavigateUp() ?: super.onSupportNavigateUp()
     }
+
+    abstract fun showSplashScreen()
 
     abstract fun registerPlugins(manager: SideEffectPluginsManager)
 
