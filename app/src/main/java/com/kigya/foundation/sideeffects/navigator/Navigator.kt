@@ -1,6 +1,5 @@
 package com.kigya.foundation.sideeffects.navigator
 
-import com.kigya.foundation.sideeffects.navigator.plugin.NavigatorPlugin
 import com.kigya.foundation.views.BaseScreen
 
 /**

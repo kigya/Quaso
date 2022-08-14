@@ -1,7 +1,6 @@
 package com.kigya.foundation.sideeffects.dialogs
 
 import com.kigya.foundation.sideeffects.dialogs.plugin.DialogConfig
-import com.kigya.foundation.sideeffects.dialogs.plugin.DialogsPlugin
 
 /**
  * Side-effects interface for managing dialogs from view-model.

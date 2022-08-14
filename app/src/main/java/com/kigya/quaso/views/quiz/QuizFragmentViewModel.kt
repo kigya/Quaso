@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.kigya.foundation.model.PendingResult
-import com.kigya.foundation.model.Progress
 import com.kigya.foundation.model.Result
 import com.kigya.foundation.model.takeSuccess
 import com.kigya.foundation.sideeffects.dialogs.Dialogs
@@ -226,7 +225,7 @@ class QuizFragmentViewModel(
     }
 
     /**
-     * Go back to [HomeFragment] screen and reset state.
+     * Go back and reset state.
      */
     fun onReturnPressed() {
         resetState()

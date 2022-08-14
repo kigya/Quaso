@@ -8,7 +8,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
-import com.kigya.foundation.model.takeSuccess
 import com.kigya.foundation.sideeffects.resources.Resources
 import com.kigya.quaso.databinding.ItemCountryBinding
 import com.kigya.quaso.model.countries.Country

@@ -1,6 +1,5 @@
 package com.kigya.foundation.views.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -19,8 +18,6 @@ import com.kigya.foundation.utils.viewModelCreator
  * - [onSupportNavigateUp]
  * - [onCreate]
  * - [onSavedInstanceState]
- * - [onActivityResult]
- * - [onRequestPermissionsResult]
  */
 class ActivityDelegate(
     private val activity: AppCompatActivity

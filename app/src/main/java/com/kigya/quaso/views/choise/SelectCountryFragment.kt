@@ -8,7 +8,6 @@ import com.kigya.foundation.views.BaseFragment
 import com.kigya.foundation.views.BaseScreen
 import com.kigya.foundation.views.screenViewModel
 import com.kigya.quaso.databinding.FragmentSelectCountryBinding
-import com.kigya.quaso.model.game.Game
 import com.kigya.quaso.views.collectFlow
 import com.kigya.quaso.views.onTryAgain
 import com.kigya.quaso.views.renderSimpleResult

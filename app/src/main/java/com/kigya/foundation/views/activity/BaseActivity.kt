@@ -3,7 +3,6 @@ package com.kigya.foundation.views.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kigya.foundation.sideeffects.SideEffectPluginsManager
-import com.kigya.foundation.views.BaseViewModel
 
 /**
  * Base class to simplify the activity implementation.

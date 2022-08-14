@@ -52,7 +52,7 @@ class SelectCountryViewModel(
     val adapter: CountriesAdapter = CountriesAdapter(this, resources)
 
     /**
-     * Main destination (contains merged values from [_availableRegions], [_instantSaveInProgress] & [_sampledSaveInProgress])
+     * Main destination (contains merged values from [_availableCountries], [_instantSaveInProgress] & [_sampledSaveInProgress])
      */
     val viewState: ResultFlow<ViewState> = combine(
         _availableCountries,
@@ -173,7 +173,7 @@ class SelectCountryViewModel(
     fun tryAgain() = load()
 
     /**
-     * Return screen back to [QuizFragment] screen without actions.
+     * Return screen back without actions.
      */
     fun onReturnPressed() {
         navigator.goBack(false)

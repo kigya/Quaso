@@ -3,7 +3,7 @@ package com.kigya.foundation.sideeffects
 import android.content.Context
 
 /**
- * Container for [SideEffectMediator] instances. This holder lives in [ActivityScopeViewModel].
+ * Container for [SideEffectMediator] instances. This holder lives in ActivityScopeViewModel.
  */
 @Suppress("UNCHECKED_CAST")
 class SideEffectMediatorsHolder {

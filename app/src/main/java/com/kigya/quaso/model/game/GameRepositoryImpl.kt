@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
 /**
- * Simple in-memory implementation of [ColorsRepository]
+ * Simple in-memory implementation of [GameRepository]
  */
 class GameRepositoryImpl(
     private val ioDispatcher: IoDispatcher

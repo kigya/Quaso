@@ -6,7 +6,7 @@ import java.util.concurrent.Executor
 
 /**
  * Base class for all side-effect mediators.
- * These mediators live in [ActivityScopeViewModel].
+ * These mediators live in ActivityScopeViewModel.
  * Mediator should delegate all UI-related logic to the implementations via [target] field.
  */
 open class SideEffectMediator<Implementation>(

@@ -10,7 +10,6 @@ import com.kigya.foundation.sideeffects.navigator.plugin.NavigatorPlugin
 import com.kigya.foundation.sideeffects.navigator.plugin.StackFragmentNavigator
 import com.kigya.foundation.sideeffects.resources.plugin.ResourcesPlugin
 import com.kigya.foundation.sideeffects.toasts.plugin.ToastsPlugin
-import com.kigya.foundation.views.BaseViewModel
 import com.kigya.foundation.views.activity.BaseActivity
 import com.kigya.quaso.R
 import com.kigya.quaso.views.home.HomeFragment

@@ -10,13 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.coroutines.CoroutineContext
 
-typealias LiveEvent<T> = LiveData<Event<T>>
-typealias MutableLiveEvent<T> = MutableLiveData<Event<T>>
-
-typealias LiveResult<T> = LiveData<Result<T>>
 typealias MutableLiveResult<T> = MutableLiveData<Result<T>>
-typealias MediatorLiveResult<T> = MediatorLiveData<Result<T>>
-
 typealias ResultFlow<T> = Flow<Result<T>>
 typealias ResultMutableStateFlow<T> = MutableStateFlow<Result<T>>
 

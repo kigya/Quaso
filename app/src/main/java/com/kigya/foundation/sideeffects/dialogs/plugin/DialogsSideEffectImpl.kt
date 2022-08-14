@@ -3,9 +3,7 @@ package com.kigya.foundation.sideeffects.dialogs.plugin
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import com.kigya.foundation.model.SuccessResult
 import com.kigya.foundation.sideeffects.SideEffectImplementation
 import com.kigya.foundation.sideeffects.dialogs.plugin.DialogsSideEffectMediator.DialogRecord
