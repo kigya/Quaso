@@ -5,7 +5,7 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.kigya.foundation.BaseApplication
+import com.kigya.foundation.SingletonScopeDependencies
 import com.kigya.foundation.views.BaseScreen.Companion.ARG_SCREEN
 import com.kigya.foundation.views.activity.ActivityDelegateHolder
 import java.lang.reflect.Constructor
@@ -15,16 +15,20 @@ import java.lang.reflect.Constructor
  * Getting view models from fragments delegate.
  */
 inline fun <reified VM : ViewModel> BaseFragment.screenViewModel() = viewModels<VM> {
-    val application = requireActivity().application as BaseApplication
+    val application = requireActivity().application
     val screen = requireArguments().getSerializable(ARG_SCREEN) as BaseScreen
 
-    val activityScopeViewModel = (requireActivity() as ActivityDelegateHolder).delegate.getActivityScopeViewModel()
+    val activityScopeViewModel =
+        (requireActivity() as ActivityDelegateHolder).delegate.getActivityScopeViewModel()
 
     // forming the list of available dependencies:
     // - singleton scope dependencies (repositories) -> from App class
     // - activity VM scope dependencies -> from ActivityScopeViewModel
     // - screen VM scope dependencies -> screen args
-    val dependencies = listOf(screen) + activityScopeViewModel.sideEffectMediators + application.singletonScopeDependencies
+    val dependencies =
+        listOf(screen) + activityScopeViewModel.sideEffectMediators + SingletonScopeDependencies.getSingletonScopeDependencies(
+            application
+        )
 
     // creating factory
     ViewModelFactory(dependencies, this)

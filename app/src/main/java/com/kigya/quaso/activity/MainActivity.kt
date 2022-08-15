@@ -11,6 +11,7 @@ import com.kigya.foundation.sideeffects.navigator.plugin.StackFragmentNavigator
 import com.kigya.foundation.sideeffects.resources.plugin.ResourcesPlugin
 import com.kigya.foundation.sideeffects.toasts.plugin.ToastsPlugin
 import com.kigya.foundation.views.activity.BaseActivity
+import com.kigya.quaso.Initializer
 import com.kigya.quaso.R
 import com.kigya.quaso.views.home.HomeFragment
 
@@ -41,6 +42,7 @@ class MainActivity : BaseActivity() {
      * Called when the activity is starting.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        Initializer.initDependencies()
         super.onCreate(savedInstanceState)
         showSplashScreen()
         setContentView(R.layout.activity_main)
